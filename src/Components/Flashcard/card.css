@@ -1,0 +1,35 @@
+#icon {
+  transition: transform 0.5s ease-in-out;
+}
+
+#menu {
+  transition: all 0.5s ease-in-out;
+  animation: expandMenu 0.5s;
+}
+
+@keyframes expandMenu {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 5rem;
+    opacity: 1;
+  }
+}
+
+.menu--icons {
+  transition: all ease-in-out 0.1s;
+}
+
+.menu--icons:hover {
+  background-color: white;
+}
+
+.menu--icons:hover #plus {
+  color: black;
+}
+
+.menu--icons:hover #bin {
+  color: black;
+}

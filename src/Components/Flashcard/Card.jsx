@@ -1,0 +1,138 @@
+import { React, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faImage,
+  faCircleNotch,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { toast } from "react-hot-toast";
+import "./card.css";
+
+export const Card = ({ card, onCardChange, deleteCard, addCard, index }) => {
+  const [menu, setMenu] = useState(true);
+
+  const handleInputChange = (field, value) => {
+    onCardChange(card.id, field, value);
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      onCardChange(card.id, "image", reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    if (card.image) {
+      onCardChange(card.id, "image", null); // Set image to null
+    }
+  };
+
+  const handleIconClick = () => {
+    setMenu(!menu);
+  };
+
+  return (
+    <div className="my-10 bg-[#004d40] text-[#fff] rounded-lg w-[100%] h-52 overflow-hidden">
+      <div
+        className="border-b-2 border-[#363a3b] w-[100%] flex items-center justify-between py-6 pr-6 pl-7"
+        style={{ height: "calc(20% + 2px)" }}
+      >
+        <span className="font-bold text-[1rem]">{index + 1}</span>
+        <div className="space-x-3 flex justify-center items-center flex-row">
+          {menu && (
+            <div
+              id="menu"
+              className="bg-[#2b3129] w-20 h-[2rem] px-1 flex justify-between items-center rounded-full overflow-hidden"
+            >
+              <span className="menu--icons h-[25px] w-[25px] rounded-full flex justify-center items-center">
+                <FontAwesomeIcon
+                  onClick={addCard}
+                  id="plus"
+                  icon={faPlus}
+                  style={{
+                    fontSize: "15px",
+                    cursor: "pointer",
+                  }}
+                />
+              </span>
+              <span className="menu--icons h-[25px] w-[25px] rounded-full flex justify-center items-center">
+                <FontAwesomeIcon
+                  id="bin"
+                  icon={faTrashCan}
+                  style={{
+                    fontSize: "15px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => deleteCard(card.id)}
+                />
+              </span>
+            </div>
+          )}
+          <FontAwesomeIcon
+            onClick={handleIconClick}
+            icon={faCircleNotch}
+            className={menu && `rotate-180`}
+            style={{ color: "#b0bec5", cursor: "pointer" }}
+            id="icon"
+          />
+        </div>
+      </div>
+      <div
+        className="flex flex-row justify-between items-center px-7"
+        style={{ height: "calc(80% - 2px)" }}
+      >
+        <form className="w-[80%] flex flex-row justify-center items-center space-x-6">
+          <span className="border-b-2 border-white w-[60%]">
+            <input
+              type="text"
+              placeholder="Enter Term"
+              className="focus:bg-[#085044] px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              onChange={(e) => handleInputChange("term", e.target.value)}
+              value={card.term}
+            />
+          </span>
+
+          <span className="border-b-2 border-white w-[40%]">
+            <input
+              type="text"
+              placeholder="Enter Definition"
+              className="focus:bg-[#085044] px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              onChange={(e) => handleInputChange("definition", e.target.value)}
+              value={card.definition}
+            />
+          </span>
+        </form>
+        <div className="ml-5 h-[40%] w-[6rem] flex items-center justify-center flex-col text-[1.5rem] space-y-2 overflow-hidden">
+          <label className="overflow-hidden border-[2px] border-white rounded-2xl border-dashed cursor-pointer h-[100%] w-[100%] flex flex-col justify-center items-center">
+            {card.image ? (
+              <img
+                src={card.image}
+                alt="uploaded"
+                className="object-cover h-[100%] w-[100%]"
+                onClick={handleImageClick}
+              />
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faImage} style={{ color: "#63E6BE" }} />
+                <h1 className="text-[0.60rem] uppercase font-semibold">
+                  Upload Image
+                </h1>
+              </>
+            )}
+            <input
+              type="file"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+};
