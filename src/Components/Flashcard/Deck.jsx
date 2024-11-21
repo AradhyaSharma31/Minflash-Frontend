@@ -15,8 +15,9 @@ const generateUniqueId = () => "_" + Math.random().toString(36).substr(2, 9);
 export const Deck = () => {
   const navigate = useNavigate();
   const { updateDeckId } = useContext(DeckContext);
-  const [user] = useState(getCurrentUserDetail());
+  const [user, setUser] = useState(getCurrentUserDetail());
   const token = getCurrentUserToken();
+  const [imageName, setImageName] = useState(null);
   const [deckId, setDeckId] = useState(
     sessionStorage.getItem("currentDeckId") || null
   );
@@ -31,6 +32,8 @@ export const Deck = () => {
         term: "",
         definition: "",
         image: null,
+        file: null,
+        renderedImage: null,
       },
     ],
   });
@@ -77,6 +80,26 @@ export const Deck = () => {
     fetchDeck();
   }, [deckId, user.id, token]);
 
+  const handleImageUpload = (fileName, file, cardId, readerResult) => {
+    try {
+      setDeck((prevDeck) => ({
+        ...prevDeck,
+        cards: prevDeck.cards.map((card) =>
+          card.id === cardId
+            ? {
+                ...card,
+                image: fileName,
+                file: file,
+                renderedImage: readerResult,
+              }
+            : card
+        ),
+      }));
+    } catch (error) {
+      toast.error("Error uploading image");
+    }
+  };
+
   const handleDeckChange = (field, value) => {
     setDeck((prevDeck) => ({ ...prevDeck, [field]: value }));
   };
@@ -90,7 +113,7 @@ export const Deck = () => {
     }));
   };
 
-  // adds a new card if the deck already exists then API is requested
+  // adds a new card if the deck already exists then API is called
   const addCard = async () => {
     const newCard = {
       id: generateUniqueId(),
@@ -103,7 +126,7 @@ export const Deck = () => {
 
     if (deckId !== "null") {
       try {
-        const token = getCurrentUserToken(); // Retrieve token
+        const token = getCurrentUserToken();
 
         if (!token) {
           console.error("No token available. Authorization is required.");
@@ -214,6 +237,9 @@ export const Deck = () => {
           window.location.reload(true);
         } else {
           const deckResponse = await createDeck(deck.title, deck.description);
+
+          console.log(deckResponse);
+
           const newDeckId = deckResponse.data.id;
 
           const cardPromises = deck.cards.map((card) =>
@@ -221,6 +247,7 @@ export const Deck = () => {
               term: card.term,
               definition: card.definition,
               image: card.image,
+              file: card.file,
             })
           );
 
@@ -269,11 +296,40 @@ export const Deck = () => {
   };
 
   // create new card
+  // create new card with image
   const createCard = async (deckId, cardData) => {
-    return await axiosInstance.post(`/edit/createCard/${deckId}`, cardData, {
-      headers: { Authorization: `Bearer ${token}` },
-      withCredentials: true,
-    });
+    const formData = new FormData();
+    formData.append("deckId", deckId);
+    formData.append("term", cardData?.term);
+    formData.append("definition", cardData?.definition);
+    formData.append("image", cardData?.image);
+
+    // Append the file only if it exists
+    if (cardData.file) {
+      formData.append("file", cardData?.file);
+    }
+
+    console.log("Image in createCard: " + cardData.image);
+    console.log("file in createCard: " + cardData.file);
+
+    try {
+      const response = await axiosInstance.post(
+        `/edit/createCardWithImage`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+
+      return response.data; // Return the created card data
+    } catch (error) {
+      console.error("Error creating card:", error);
+      throw error;
+    }
   };
 
   return (
@@ -315,6 +371,7 @@ export const Deck = () => {
             deleteCard={deleteCard}
             addCard={addCard}
             index={index}
+            handleImageUpload={handleImageUpload}
           />
         ))}
         <div className="flex justify-center">

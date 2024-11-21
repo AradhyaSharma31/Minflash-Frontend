@@ -9,18 +9,58 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-hot-toast";
 import "./card.css";
 
-export const Card = ({ card, onCardChange, deleteCard, addCard, index }) => {
+export const Card = ({
+  card,
+  onCardChange,
+  deleteCard,
+  addCard,
+  index,
+  handleImageUpload,
+}) => {
   const [menu, setMenu] = useState(true);
 
   const handleInputChange = (field, value) => {
     onCardChange(card.id, field, value);
   };
 
+  // const handleImageChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     onCardChange(card.id, "image", reader.result);
+  //   };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  // const handleImageChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const fileName = file.name;
+  //   console.log(file);
+
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     handleImageUpload(fileName, file, card.id);
+  //     onCardChange(card.id, "image", reader.result);
+  //     console.log(fileName);
+  //     console.log("cardId: " + card.id + "---" + "file: " + file.name);
+  //   };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    const fileName = file.name;
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      onCardChange(card.id, "image", reader.result);
+      handleImageUpload(fileName, file, card.id, reader.result);
+      // Avoid directly modifying "image" with reader.result here
+      console.log(fileName);
+      console.log("cardId: " + card.id + "---" + "file: " + file.name);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -28,8 +68,8 @@ export const Card = ({ card, onCardChange, deleteCard, addCard, index }) => {
   };
 
   const handleImageClick = () => {
-    if (card.image) {
-      onCardChange(card.id, "image", null); // Set image to null
+    if (card.renderedImage) {
+      onCardChange(card.id, "renderedImage", null); // Set image to null
     }
   };
 
@@ -110,10 +150,10 @@ export const Card = ({ card, onCardChange, deleteCard, addCard, index }) => {
         </form>
         <div className="ml-5 h-[40%] w-[6rem] flex items-center justify-center flex-col text-[1.5rem] space-y-2 overflow-hidden">
           <label className="overflow-hidden border-[2px] border-white rounded-2xl border-dashed cursor-pointer h-[100%] w-[100%] flex flex-col justify-center items-center">
-            {card.image ? (
+            {card.renderedImage ? (
               <img
-                src={card.image}
-                alt="uploaded"
+                src={card.renderedImage}
+                alt={card.renderedImage}
                 className="object-cover h-[100%] w-[100%]"
                 onClick={handleImageClick}
               />

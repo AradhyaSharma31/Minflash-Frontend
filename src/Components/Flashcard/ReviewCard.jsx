@@ -16,6 +16,8 @@ import {
 
 export const ReviewCard = () => {
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState("");
+  const [error, setError] = useState(null);
   const [deck, setDeck] = useState(null);
   const [currentCard, setCurrentCard] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -51,11 +53,36 @@ export const ReviewCard = () => {
     fetchDeck();
   }, [userId, deckId, token]);
 
-  const filterNextReviewCard = (cards) => {
+  const getImageUrl = async (token, userId, deckId, cardId, file) => {
+    try {
+      const response = await fetch(
+        `http://localhost:9030/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${file}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error fetching image URL");
+      }
+
+      const data = await response.json();
+      setImageUrl(data.url);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const filterNextReviewCard = async (cards) => {
     const now = new Date();
     const validCard = cards.find((card) => new Date(card.nextReview) <= now);
 
     if (validCard) {
+      await getImageUrl(token, userId, deckId, validCard.id, validCard.image);
       setCurrentCard(validCard);
       setMessageCard(false);
     } else {
@@ -222,13 +249,9 @@ export const ReviewCard = () => {
             <div className="front">{currentCard.term}</div>
             <div className="back">
               <div className="img--parent">
-                {currentCard.image && (
-                  <img
-                    className="card--image"
-                    src={currentCard.image}
-                    alt="Uploaded"
-                  />
-                )}
+                {/* {currentCard.image && ( */}
+                <img className="card--image" src={imageUrl} alt={imageUrl} />
+                {/* // )} */}
                 <h3>{currentCard.definition}</h3>
               </div>
               <div className="postpone--btns">

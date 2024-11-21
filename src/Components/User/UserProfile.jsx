@@ -128,7 +128,7 @@ export const UserProfile = () => {
         </div>
 
         {/* Appearance */}
-        <div className="mb-10">
+        {/* <div className="mb-10">
           <h1 className="flex font-semibold mb-2 text-[#ffffff]">Appearance</h1>
           <div className="border border-gray-400 rounded-xl h-20">
             <div className="h-full border-gray-400 flex flex-row items-center justify-between px-6">
@@ -154,7 +154,7 @@ export const UserProfile = () => {
               </Select>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Account and Privacy */}
         <div className="mb-10">

@@ -80,28 +80,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // const searchSets = async () => {
-  //   try {
-  //     const response = await axios.get(`${API_BASE_URL}/readUser/${user.id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const user = response.data;
-
-  //     const userDecks = user.decks.map((deck) => ({
-  //       DeckId: deck.id,
-  //       UserProfileImage: user.profilePicture || "",
-  //       createdBy: user.username,
-  //       title: deck.title,
-  //       totalTerms: deck.cards.length,
-  //     }));
-  //     setDeck(userDecks);
-  //   } catch (error) {
-  //     console.error("Error fetching user decks:", error);
-  //   }
-  // };
-
   const searchSets = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/getAllDecks`);
@@ -173,7 +151,7 @@ const Navbar = () => {
 
             {/* Search Dropdown */}
             {searchInput && filteredDecks.length > 0 && (
-              <div className="border border-gray-700 absolute top-full left-1/2 transform -translate-x-1/2 w-full bg-[#13171b] h-52 overflow-y-auto overflow-x-hidden shadow-lg rounded-md mt-1 p-2">
+              <div className="border border-gray-700 absolute top-full left-1/2 transform -translate-x-1/2 w-full h-52 bg-[#13171b] overflow-y-auto overflow-x-hidden shadow-lg rounded-md mt-1 p-2">
                 {filteredDecks.map((d) => (
                   <span
                     key={d.DeckId}
@@ -182,9 +160,9 @@ const Navbar = () => {
                       navigate(`/user/explore/${d.DeckId}`);
                       window.location.reload(true);
                     }}
-                    className="flex flex-row items-center gap-5 w-full h-14 bg-[#1f1f23] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#29292e] transition duration-200 cursor-pointer"
+                    className="overflow-hidden flex flex-row items-center gap-5 w-full h-14 bg-[#1f1f23] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#29292e] transition duration-200 cursor-pointer"
                   >
-                    <h1 className="font-semibold text-xl">
+                    <h1 className="font-semibold lg:text-lg sm:text-sm">
                       {d.title.length > 20
                         ? `${d.title.slice(0, 20)}...`
                         : d.title}
@@ -257,13 +235,6 @@ const Navbar = () => {
                         alt=""
                       />
                       Your Sets
-                    </li>
-                    <li
-                      onClick={handleCloseMenu}
-                      className="flex flex-row items-center gap-8 px-6 py-2 hover:bg-[#312f2f] cursor-pointer"
-                    >
-                      <FontAwesomeIcon icon={faBookmark} />
-                      Saved Sets
                     </li>
                     <li
                       onClick={() => {
