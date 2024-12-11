@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
@@ -38,6 +38,101 @@ export const UserProfile = () => {
   const token = getCurrentUserToken();
   const navigate = useNavigate();
   const [login, setLogin] = useState(isLoggedIn());
+  const [imageURL, setImageURL] = useState(
+    localStorage.getItem("profileImage")
+  ); // State for file URL saved in azure
+  const [previousImage, setPreviousImage] = useState(null); // State for file name
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("userId", user.id);
+    formData.append("file", file);
+
+    try {
+      // Delete the previous image if it exists
+      if (previousImage) {
+        const deleteResponse = await fetch(
+          `http://localhost:9030/flashcard/blob/delete-profile?userId=${user.id}&fileName=${previousImage}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        localStorage.removeItem("profileImage");
+
+        if (!deleteResponse.ok) {
+          const errorText = await deleteResponse.text();
+          console.error("Failed to delete previous image:", errorText);
+          throw new Error("Failed to delete previous image");
+        }
+      }
+
+      // Update profile image
+      const updateResponse = await fetch(
+        `http://localhost:9030/flashcard/blob/update-profile`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!updateResponse.ok) {
+        const errorText = await updateResponse.text();
+        console.error("Failed to update profile image:", errorText);
+        throw new Error("Failed to update profile image");
+      }
+
+      const { file } = await updateResponse.json(); // returns the fileName
+      setPreviousImage(file);
+
+      toast.success("Profile picture updated successfully!");
+
+      // fetching user
+      try {
+        const response = await fetch(
+          `http://localhost:9030/flashcard/user/readUser/${user.id}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // get url if picture exists
+        if (data.profilePicture) {
+          const profileUrlResponse = await fetch(
+            `http://localhost:9030/flashcard/blob/get-profile-url?userId=${user.id}&file=${data.profilePicture}`
+          );
+
+          if (!profileUrlResponse.ok) {
+            throw new Error("Failed to fetch profile image URL");
+          }
+
+          const { url } = await profileUrlResponse.json();
+          setImageURL(url);
+          localStorage.setItem("profileImage", url);
+        }
+      } catch (err) {
+        console.error("Error fetching profile data:", err);
+      }
+
+      window.location.reload();
+    } catch (err) {
+      console.error("Error updating profile picture:", err);
+      toast.error("Failed to update profile picture");
+    }
+  };
 
   const handleProfileSelector = () => {
     profileSelector.current.click();
@@ -49,6 +144,7 @@ export const UserProfile = () => {
       navigate("/");
     });
   };
+
   const handleDeleteAccount = async () => {
     try {
       setIsLoading(true);
@@ -93,12 +189,20 @@ export const UserProfile = () => {
           <div className="border border-gray-400 rounded-xl h-72">
             <div className="h-[40%] border-b border-gray-400 flex flex-row items-center gap-10 px-5">
               <span className="relative h-[5rem] w-[5rem] rounded-full flex justify-center items-center bg-yellow-500">
-                <h1 className="text-3xl font-bold">
-                  {user.uniqueUsername.slice(0, 1).toUpperCase()}
-                </h1>
+                {imageURL ? (
+                  <img
+                    src={imageURL}
+                    alt={imageURL}
+                    className="object-cover rounded-full h-[100%] w-[100%]"
+                  />
+                ) : (
+                  <h1 className="text-3xl font-bold select-none">
+                    {user.uniqueUsername.slice(0, 1).toUpperCase()}
+                  </h1>
+                )}
                 <FontAwesomeIcon
                   onClick={handleProfileSelector}
-                  className="absolute right-0 bottom-1 p-1 rounded-full bg-blue-500 cursor-pointer"
+                  className="border-2 border-[#15171a] absolute right-0 bottom-0 p-1 rounded-full bg-blue-500 cursor-pointer"
                   icon={faPlus}
                 />
                 <input
@@ -106,6 +210,7 @@ export const UserProfile = () => {
                   name="profile-picture-selector"
                   className="hidden"
                   ref={profileSelector}
+                  onChange={handleImageChange}
                 />
               </span>
               <h1 className="font-semibold text-[#ffffff] text-2xl">

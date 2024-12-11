@@ -26,6 +26,9 @@ export const UserDecks = () => {
   const currentUser = getCurrentUserDetail();
   const token = getCurrentUserToken();
   const [popoverDeckId, setPopoverDeckId] = useState(null);
+  const [imageURL, setImageURL] = useState(
+    localStorage.getItem("profileImage")
+  ); // State for file URL saved in azure
 
   const togglePopover = (deckId) => {
     setPopoverDeckId(deckId);
@@ -105,8 +108,18 @@ export const UserDecks = () => {
           <span className="border-b border-[#2c2828] font-semibold text-[12px] w-full h-[40%] flex justify-between items-center rounded-t-2xl px-3 space-x-2">
             <span className="flex flex-row items-center">
               <span className="flex flex-row items-center space-x-2">
-                <span className="h-5 w-5 rounded-full overflow-hidden flex justify-center items-center bg-yellow-700">
-                  {currentUser.uniqueUsername.slice(0, 1).toUpperCase()}
+                <span className="h-5 w-5 rounded-full overflow-hidden flex justify-center items-center select-none bg-yellow-700">
+                  {imageURL ? (
+                    <img
+                      src={imageURL}
+                      alt={imageURL}
+                      className="object-cover rounded-full h-[100%] w-[100%]"
+                    />
+                  ) : (
+                    <h1>
+                      {currentUser.uniqueUsername.slice(0, 1).toUpperCase()}
+                    </h1>
+                  )}
                 </span>
                 <h1>{item.createdBy}</h1>
                 <hr />

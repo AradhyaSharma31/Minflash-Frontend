@@ -6,7 +6,6 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { toast } from "react-hot-toast";
 import "./card.css";
 
 export const Card = ({
@@ -23,34 +22,6 @@ export const Card = ({
     onCardChange(card.id, field, value);
   };
 
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     onCardChange(card.id, "image", reader.result);
-  //   };
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   const fileName = file.name;
-  //   console.log(file);
-
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     handleImageUpload(fileName, file, card.id);
-  //     onCardChange(card.id, "image", reader.result);
-  //     console.log(fileName);
-  //     console.log("cardId: " + card.id + "---" + "file: " + file.name);
-  //   };
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const fileName = file.name;
@@ -58,9 +29,6 @@ export const Card = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       handleImageUpload(fileName, file, card.id, reader.result);
-      // Avoid directly modifying "image" with reader.result here
-      console.log(fileName);
-      console.log("cardId: " + card.id + "---" + "file: " + file.name);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -69,7 +37,7 @@ export const Card = ({
 
   const handleImageClick = () => {
     if (card.renderedImage) {
-      onCardChange(card.id, "renderedImage", null); // Set image to null
+      onCardChange(card.id, "renderedImage", null);
     }
   };
 

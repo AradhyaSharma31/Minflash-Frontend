@@ -295,7 +295,6 @@ export const Deck = () => {
     );
   };
 
-  // create new card
   // create new card with image
   const createCard = async (deckId, cardData) => {
     const formData = new FormData();

@@ -32,22 +32,9 @@ const Navbar = () => {
   const [deck, setDeck] = useState([]);
   const [searchInput, setSearchInput] = useState(""); // Track search input
   const [filteredDecks, setFilteredDecks] = useState([]); // Track matching decks
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleProfileClicks = () => {
-    setClickProfile((prev) => !prev);
-  };
-
-  const handleCloseMenu = () => {
-    setClickProfile(false);
-  };
+  const [imageURL, setImageURL] = useState(
+    localStorage.getItem("profileImage")
+  ); // State for file URL saved in azure
 
   // close the profile details tab from onWindow click
   useEffect(() => {
@@ -79,6 +66,22 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleProfileClicks = () => {
+    setClickProfile((prev) => !prev);
+  };
+
+  const handleCloseMenu = () => {
+    setClickProfile(false);
+  };
 
   const searchSets = async () => {
     try {
@@ -183,7 +186,17 @@ const Navbar = () => {
                 className="cursor-pointer border-2 border-[#dbcdcd] rounded-full flex justify-between items-center flex-row w-[5.2rem] pr-4 pl-1 py-1"
               >
                 <div className="select-none cursor-pointer h-8 w-8 rounded-full bg-[#a9a9af] text-[#F0F4F8] flex justify-center items-center font-semibold">
-                  {currentUser.uniqueUsername.slice(0, 1).toUpperCase()}
+                  {imageURL ? (
+                    <img
+                      src={imageURL}
+                      alt={imageURL}
+                      className="object-cover rounded-full h-[100%] w-[100%]"
+                    />
+                  ) : (
+                    <h1>
+                      {currentUser.uniqueUsername.slice(0, 1).toUpperCase()}
+                    </h1>
+                  )}
                 </div>
                 <div
                   className={
