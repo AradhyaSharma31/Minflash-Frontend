@@ -82,6 +82,7 @@ export const UserDecks = () => {
       setPopoverDeckId(null);
 
       setDeck((prevDeck) => prevDeck.filter((item) => item.DeckId !== deckId));
+      window.location.reload();
     } catch (error) {
       console.log("Error deleting the deck: " + error);
     }
@@ -170,7 +171,6 @@ export const UserDecks = () => {
                     onClick={(e) => {
                       handleDelete(item.DeckId, e);
                       e.stopPropagation();
-                      window.location.reload();
                     }}
                     className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
                   >

@@ -9,11 +9,12 @@ import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { toast } from "react-hot-toast";
 
 export const ExploreReviewDeck = () => {
-  const [deck, setDeck] = useState(null);
+  const [deck, setDeck] = useState("");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const userId = getCurrentUserDetail().id;
   const deckId = sessionStorage.getItem("currentDeckId");
+  const [imageUrl, setImageUrl] = useState(null);
   const token = getCurrentUserToken();
 
   useEffect(() => {
@@ -32,15 +33,34 @@ export const ExploreReviewDeck = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch deck");
         }
+
         const fetchedDeck = await response.json();
         setDeck(fetchedDeck);
+
+        if (fetchedDeck.cards?.[currentCardIndex]?.id) {
+          const cardImageResponse = await getCardImage(
+            userId,
+            deckId,
+            fetchedDeck.cards[currentCardIndex].id,
+            fetchedDeck.cards[currentCardIndex].image
+          );
+
+          if (!cardImageResponse.ok) {
+            throw new Error("Failed to fetch card image");
+          }
+
+          const cardImageUrl = await cardImageResponse.json();
+          setImageUrl(cardImageUrl.url); // Ensure you're setting only the URL
+        }
       } catch (error) {
         console.error("Error fetching deck:", error);
       }
     };
 
-    fetchDeck();
-  }, [userId, deckId, token]);
+    if (deckId) {
+      fetchDeck();
+    }
+  }, [deckId, token, currentCardIndex]);
 
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
@@ -80,6 +100,12 @@ export const ExploreReviewDeck = () => {
     }
   };
 
+  const getCardImage = async (userId, deckId, cardId, image) => {
+    return await fetch(
+      `http://localhost:9030/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${image}`
+    );
+  };
+
   return (
     <div className="h-auto mt-40 flex flex-col items-center space-y-3">
       {deck && (
@@ -103,11 +129,7 @@ export const ExploreReviewDeck = () => {
             <div className="back">
               <div className="img--parent">
                 {deck.cards[currentCardIndex].image && (
-                  <img
-                    className="card--image"
-                    src={deck.cards[currentCardIndex].image}
-                    alt="Uploaded"
-                  />
+                  <img className="card--image" src={imageUrl} alt="Uploaded" />
                 )}
                 <h3>{deck.cards[currentCardIndex].definition}</h3>
               </div>

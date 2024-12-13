@@ -58,26 +58,28 @@ export const Card = ({
               id="menu"
               className="bg-[#2b3129] w-20 h-[2rem] px-1 flex justify-between items-center rounded-full overflow-hidden"
             >
-              <span className="menu--icons h-[25px] w-[25px] rounded-full flex justify-center items-center">
+              <span
+                onClick={addCard}
+                className="menu--icons cursor-pointer h-[25px] w-[25px] rounded-full flex justify-center items-center"
+              >
                 <FontAwesomeIcon
-                  onClick={addCard}
                   id="plus"
                   icon={faPlus}
                   style={{
                     fontSize: "15px",
-                    cursor: "pointer",
                   }}
                 />
               </span>
-              <span className="menu--icons h-[25px] w-[25px] rounded-full flex justify-center items-center">
+              <span
+                onClick={() => deleteCard(card.id)}
+                className="menu--icons cursor-pointer h-[25px] w-[25px] rounded-full flex justify-center items-center"
+              >
                 <FontAwesomeIcon
                   id="bin"
                   icon={faTrashCan}
                   style={{
                     fontSize: "15px",
-                    cursor: "pointer",
                   }}
-                  onClick={() => deleteCard(card.id)}
                 />
               </span>
             </div>
