@@ -80,7 +80,40 @@ export const Deck = () => {
     fetchDeck();
   }, [deckId, user.id, token]);
 
-  const handleImageUpload = (fileName, file, cardId, readerResult) => {
+  // const handleImageUpload = (fileName, file, cardId, readerResult) => {
+  //   if(deckId !== "null") {
+
+  //   }
+  //   try {
+  //     setDeck((prevDeck) => ({
+  //       ...prevDeck,
+  //       cards: prevDeck.cards.map((card) =>
+  //         card.id === cardId
+  //           ? {
+  //               ...card,
+  //               image: fileName,
+  //               file: file,
+  //               renderedImage: readerResult,
+  //             }
+  //           : card
+  //       ),
+  //     }));
+  //   } catch (error) {
+  //     toast.error("Error uploading image");
+  //   }
+  // };
+
+  const handleImageUpload = async (fileName, file, cardId, readerResult) => {
+    if (deckId !== "null") {
+      try {
+        await handleImageUpdate(cardId, file);
+      } catch (error) {
+        console.error("Error updating image during upload:", error);
+        toast.error("Error updating image");
+        return;
+      }
+    }
+
     try {
       setDeck((prevDeck) => ({
         ...prevDeck,
@@ -95,8 +128,56 @@ export const Deck = () => {
             : card
         ),
       }));
+
+      toast.success("Image uploaded successfully");
     } catch (error) {
+      console.error("Error setting deck state during image upload:", error);
       toast.error("Error uploading image");
+    }
+  };
+
+  const getCard = async (cardId) => {
+    return await fetch(
+      `http://localhost:9030/flashcard/edit/getCard?deckId=${deckId}&cardId=${cardId}`
+    );
+  };
+
+  const handleImageDelete = async (cardId) => {
+    try {
+      const getCardRes = await getCard(cardId);
+      const cardRes = await getCardRes.json();
+
+      return await axiosInstance.delete(
+        `blob/delete?userId=${user.id}&deckId=${deckId}&cardId=${cardId}&fileName=${cardRes.image}`
+      );
+    } catch (e) {
+      console.error("Error Deleting Image:", e);
+      toast.error("Error Deleting Image");
+    }
+  };
+
+  const handleImageUpdate = async (cardId, file) => {
+    try {
+      // Delete the existing image first to avoid duplicate files
+      await handleImageDelete(cardId);
+
+      const formData = new FormData();
+      formData.append("userId", user.id);
+      formData.append("deckId", deckId);
+      formData.append("cardId", cardId);
+      formData.append("file", file);
+
+      await axiosInstance.put(`/blob/update`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Image Updated Successfully");
+    } catch (err) {
+      console.error("Error Updating Image:", err);
+      toast.error("Error Updating Image");
     }
   };
 

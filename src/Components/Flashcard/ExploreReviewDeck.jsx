@@ -37,7 +37,10 @@ export const ExploreReviewDeck = () => {
         const fetchedDeck = await response.json();
         setDeck(fetchedDeck);
 
-        if (fetchedDeck.cards?.[currentCardIndex]?.id) {
+        if (
+          fetchedDeck.cards?.[currentCardIndex]?.id &&
+          fetchedDeck.cards?.[currentCardIndex]?.image !== "null"
+        ) {
           const cardImageResponse = await getCardImage(
             userId,
             deckId,
@@ -128,7 +131,7 @@ export const ExploreReviewDeck = () => {
             <div className="front">{deck.cards[currentCardIndex].term}</div>
             <div className="back">
               <div className="img--parent">
-                {deck.cards[currentCardIndex].image && (
+                {deck.cards[currentCardIndex].image !== "null" && (
                   <img className="card--image" src={imageUrl} alt="Uploaded" />
                 )}
                 <h3>{deck.cards[currentCardIndex].definition}</h3>
