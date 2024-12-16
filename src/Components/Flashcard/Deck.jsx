@@ -416,28 +416,28 @@ export const Deck = () => {
     <div className="mt-32 h-[100%]">
       <div className="rounded-lg bg-[#004d40] text-[#fff] min-h-52 h-auto flex flex-col pb-3">
         <div className="border-b-2 border-[#363a3b] h-9 flex items-center px-6">
-          <span className="font-semibold">Set</span>
+          <span className="font-normal text-sm">Set</span>
         </div>
         <div className="space-y-5 px-5 flex flex-col">
           <div className="flex flex-col pt-2">
-            <span className="font-semibold text-[13px] px-1 flex">Title</span>
+            <span className="font-medium text-[13px] px-1 flex">Title</span>
             <input
               type="text"
               placeholder="Enter Title"
               value={deck.title}
               onChange={(e) => handleDeckChange("title", e.target.value)}
-              className="focus:bg-[#085044] px-1 h-10 w-full bg-transparent focus:outline-none focus:border-b-2"
+              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-10 w-full bg-transparent focus:outline-none focus:border-b-2"
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-[13px] flex pb-2 px-1">
+            <span className="font-medium text-[13px] flex pb-2 px-1">
               Description
             </span>
             <textarea
               placeholder="Enter Description"
               value={deck.description}
               onChange={(e) => handleDeckChange("description", e.target.value)}
-              className="focus:bg-[#085044] px-1 h-20 w-full bg-transparent focus:outline-none focus:border-b-2 resize-none"
+              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-20 w-full bg-transparent focus:outline-none focus:border-b-2 resize-none"
             />
           </div>
         </div>
@@ -459,7 +459,7 @@ export const Deck = () => {
           <Button
             onClick={handleSave}
             disabled={loading}
-            className={`bg-[#00bfa5] hover:bg-[#738582] focus:border-2 text-white px-6 py-2 rounded-md mt-5 font-bold ${
+            className={`bg-[#00bfa5] hover:bg-[#738582] focus:border-2 text-white px-6 rounded-md font-medium ${
               loading ? "opacity-50" : ""
             }`}
           >

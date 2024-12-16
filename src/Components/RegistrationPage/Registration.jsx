@@ -265,7 +265,7 @@ export const Registration = ({ isOpen, handleClose }) => {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="h-10">
-              <h1 className="font-semibold text-white text-[25px]">
+              <h1 className="font-medium text-xl text-white">
                 {logIn ? "Create an account" : "Welcome Back"}
               </h1>
             </div>
@@ -280,7 +280,7 @@ export const Registration = ({ isOpen, handleClose }) => {
             {/* form inputs */}
             <form
               onSubmit={!logIn ? handleLoginSubmit : submitForm}
-              className="form pt-2"
+              className="form"
             >
               <div className="inputBox">
                 <input
@@ -354,7 +354,7 @@ export const Registration = ({ isOpen, handleClose }) => {
               {otpSent && logIn && (
                 <div className="border border-gray-700 rounded-xl overflow-hidden h-10 flex flex-row justify-start">
                   <input
-                    className="h-full w-[75%] px-3 bg-transparent outline-none"
+                    className="h-full w-[75%] text-sm px-3 bg-transparent outline-none"
                     type="number"
                     name="OTP"
                     id="OTP"
@@ -370,7 +370,7 @@ export const Registration = ({ isOpen, handleClose }) => {
                     }}
                     disabled={timer > 0}
                     autoFocus
-                    className="bg-[#27272e] w-[25%] font-semibold"
+                    className="bg-[#27272e] w-[25%] text-sm font-medium"
                   >
                     {timer > 0 ? `${timer}s` : "Resend"}
                   </button>
@@ -379,7 +379,7 @@ export const Registration = ({ isOpen, handleClose }) => {
 
               {/* warning box */}
               {error.isError && logIn && (
-                <div className="warning--box--animate flex-col items-start text-[0.75rem] px-2 py-1 font-semibold rounded-md bg-[#2e3031] text-[#e6e1e1]">
+                <div className="warning--box--animate flex-col items-start text-[0.7rem] px-2 py-1 font-medium rounded-md bg-[#2e3031] text-[#e6e1e1]">
                   <ul className="list-disc pl-4">
                     {error.errs.map((item, key) => (
                       <li key={key}>{item}</li>
@@ -389,7 +389,7 @@ export const Registration = ({ isOpen, handleClose }) => {
               )}
 
               {loginError.isError && !logIn && (
-                <div className="warning--box--animate flex-col items-start text-[0.75rem] px-2 py-1 font-semibold rounded-md bg-[#2e3031] text-[#e6e1e1]">
+                <div className="warning--box--animate flex-col items-start text-[0.7rem] px-2 py-1 font-medium rounded-md bg-[#2e3031] text-[#e6e1e1]">
                   <ul className="list-disc pl-4">
                     <li>{loginError.errs}</li>
                   </ul>
@@ -398,14 +398,14 @@ export const Registration = ({ isOpen, handleClose }) => {
 
               {/* submit button */}
               <button
-                className="py-3 rounded-3xl font-semibold bg-[#27272e] hover:bg-[#1f1f22]"
+                className="py-3 rounded-3xl font-medium bg-[#27272e] hover:bg-[#1f1f22]"
                 type="submit"
               >
                 Continue
               </button>
             </form>
 
-            <h1 className="flex flex-row justify-center items-center mt-5 text-[0.8rem]">
+            <h1 className="flex flex-row justify-center items-center mt-5 text-[0.75rem]">
               {logIn ? (
                 <>
                   Already have an account?{" "}
@@ -440,7 +440,7 @@ export const Registration = ({ isOpen, handleClose }) => {
             {/* google oauth button */}
             <div className="flex flex-col">
               <button className="oauth--buttons">
-                Continue with Google
+                Continue with Google (unavailable)
                 <FontAwesomeIcon icon={faGoogle} style={{ fontSize: "1rem" }} />
               </button>
               {/* <button className="oauth--buttons">

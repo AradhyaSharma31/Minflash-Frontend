@@ -114,7 +114,10 @@ export const ExploreReviewDeck = () => {
       {deck && (
         <div className="w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] flex flex-row items-end justify-between px-1">
           <h1 className="text-[2rem] font-semibold">
-            {deck.title.length > 40 ? `${deck.title}...` : deck.title}
+            {deck.title.charAt(0).toUpperCase() +
+              (deck.title.length > 40
+                ? `${deck.title.slice(1, 40)}...`
+                : deck.title.slice(1))}
           </h1>
         </div>
       )}
@@ -128,13 +131,17 @@ export const ExploreReviewDeck = () => {
               isFlipped ? "flipped" : ""
             } w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] h-[22rem]`}
           >
-            <div className="front">{deck.cards[currentCardIndex].term}</div>
+            <div className="front">
+              <h1 className="text-2xl font-semibold">
+                {deck.cards[currentCardIndex].term}
+              </h1>
+            </div>
             <div className="back">
               <div className="img--parent">
+                <h3>{deck.cards[currentCardIndex].definition}</h3>
                 {deck.cards[currentCardIndex].image !== "null" && (
                   <img className="card--image" src={imageUrl} alt="Uploaded" />
                 )}
-                <h3>{deck.cards[currentCardIndex].definition}</h3>
               </div>
             </div>
           </div>

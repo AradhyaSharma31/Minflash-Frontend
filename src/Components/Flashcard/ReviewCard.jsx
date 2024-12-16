@@ -3,6 +3,8 @@ import "./reviewCard.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faSync } from "@fortawesome/free-solid-svg-icons";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -174,22 +176,32 @@ export const ReviewCard = () => {
       {deck && (
         <div className="w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] flex flex-row items-end justify-between px-1">
           <h1 className="text-[1.75rem] font-semibold">
-            {deck.title.length > 25
-              ? `${deck.title.slice(0, 25)}...`
-              : deck.title}
+            {deck.title.charAt(0).toUpperCase() +
+              (deck.title.length > 25
+                ? `${deck.title.slice(1, 25)}...`
+                : deck.title.slice(1))}
           </h1>
+
           <span className="space-x-4">
             <button
               onClick={() => {
                 navigate("/user/edit");
               }}
-              className="w-[100px] px-1 py-2 font-semibold rounded-md bg-[#201e1e] focus:border-2"
+              className="w-[100px] text-sm px-1 py-2 font-normal rounded-md bg-[#201e1e] focus:border-2"
             >
+              <FontAwesomeIcon
+                style={{ marginRight: "15px" }}
+                icon={faPenToSquare}
+              />
               Edit
             </button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <button className="w-[100px] px-1 py-2 font-semibold rounded-md bg-[#201e1e] focus:border-2">
+                <button className="w-[100px] text-sm px-1 py-2 font-normal rounded-md bg-[#201e1e] focus:border-2">
+                  <FontAwesomeIcon
+                    style={{ marginRight: "15px" }}
+                    icon={faSync}
+                  />
                   Reset
                 </button>
               </AlertDialogTrigger>
@@ -208,7 +220,7 @@ export const ReviewCard = () => {
                     Cancel
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
+                    className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
                     onClick={handleReset}
                   >
                     Reset
@@ -246,13 +258,16 @@ export const ReviewCard = () => {
               isFlipped ? "flipped" : ""
             } w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] h-[22rem]`}
           >
-            <div className="front">{currentCard.term}</div>
+            <div className="front">
+              <h1 className="text-2xl font-semibold">{currentCard.term}</h1>
+            </div>
+
             <div className="back">
               <div className="img--parent">
+                <h3>{currentCard.definition}</h3>
                 {/* {currentCard.image && ( */}
                 <img className="card--image" src={imageUrl} alt={imageUrl} />
                 {/* // )} */}
-                <h3>{currentCard.definition}</h3>
               </div>
               <div className="postpone--btns">
                 <button

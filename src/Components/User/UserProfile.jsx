@@ -177,13 +177,13 @@ export const UserProfile = () => {
     <div>
       {/* Settings */}
       <div className="relative mt-32 h-full border border-transparent">
-        <h1 className="text-[#ffffff] flex text-4xl font-bold mb-12">
+        <h1 className="text-[#ffffff] flex text-3xl font-bold mb-12">
           Settings
         </h1>
 
         {/* Personal Information */}
         <div className="mb-10">
-          <h1 className="flex font-semibold mb-2 text-[#ffffff]">
+          <h1 className="text-sm flex font-medium mb-2 text-[#ffffff]">
             Personal Information
           </h1>
           <div className="border border-gray-400 rounded-xl h-72">
@@ -196,7 +196,7 @@ export const UserProfile = () => {
                     className="object-cover rounded-full h-[100%] w-[100%]"
                   />
                 ) : (
-                  <h1 className="text-3xl font-bold select-none">
+                  <h1 className="text-3xl font-semibold select-none">
                     {user.uniqueUsername.slice(0, 1).toUpperCase()}
                   </h1>
                 )}
@@ -213,20 +213,24 @@ export const UserProfile = () => {
                   onChange={handleImageChange}
                 />
               </span>
-              <h1 className="font-semibold text-[#ffffff] text-2xl">
+              <h1 className="font-medium text-[#ffffff] text-xl">
                 Profile Picture
               </h1>
             </div>
             <div className="h-[30%] border-b border-gray-400 flex flex-row items-center justify-between px-6">
               <div className="flex flex-col items-start">
-                <h1 className="font-semibold">Username</h1>
-                <h1 className="text-[#dad6d6]">{user.uniqueUsername}</h1>
+                <h1 className="font-medium text-sm">Username</h1>
+                <h1 className="text-[#dad6d6] font-medium text-sm">
+                  {user.uniqueUsername}
+                </h1>
               </div>
             </div>
             <div className="h-[30%] flex flex-row items-center justify-between px-6">
               <div className="flex flex-col items-start">
-                <h1 className="font-semibold">Email</h1>
-                <h1 className="text-[#dad6d6]">{user.email}</h1>
+                <h1 className="font-medium text-sm">Email</h1>
+                <h1 className="text-[#dad6d6] font-medium text-sm">
+                  {user.email}
+                </h1>
               </div>
             </div>
           </div>
@@ -263,16 +267,18 @@ export const UserProfile = () => {
 
         {/* Account and Privacy */}
         <div className="mb-10">
-          <h1 className="flex font-semibold mb-2 text-[#ffffff]">Account</h1>
+          <h1 className="flex font-medium text-sm mb-2 text-[#ffffff]">
+            Account
+          </h1>
           <div className="border border-gray-400 rounded-xl h-20">
             <div className="h-full border-gray-400 flex flex-row items-center justify-between px-6">
-              <h1 className="text-md font-semibold">Delete your account</h1>
+              <h1 className="font-medium text-sm">Delete your account</h1>
 
               {/* Trigger Button */}
               {/* Trigger Button */}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <button className="font-semibold border border-gray-400 focus:border-2 py-2 px-4 rounded-lg bg-red-900">
+                  <button className="font-medium text-xs border border-gray-400 focus:border-2 py-2 px-4 rounded-lg bg-red-900">
                     Delete Account
                   </button>
                 </AlertDialogTrigger>

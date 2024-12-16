@@ -44,6 +44,7 @@ input[type="number"] {
   position: absolute;
   top: 1px;
   left: 1px;
+  font-size: 0.85rem;
   padding: 1rem 0.25rem;
   pointer-events: none;
   transition: all 0.4s ease;
@@ -59,7 +60,7 @@ input[type="number"] {
 
 .inputBox input:focus ~ span,
 .inputBox input:valid ~ span {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff6;
   transform: translate(0px, -15px);
 }
@@ -68,7 +69,8 @@ input[type="number"] {
   display: flex;
   align-items: center;
   text-align: center;
-  margin: 20px 0;
+  margin: 15px 0;
+  font-size: 0.8rem;
 }
 
 .divider::before,
@@ -89,8 +91,8 @@ input[type="number"] {
   padding: 10px 20px;
   color: #333;
   background-color: #fff;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 1px;
   border-radius: 8px;
   cursor: pointer;

@@ -37,7 +37,7 @@ export const UserDecks = () => {
   useEffect(() => {
     const fetchUserDecks = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `${API_BASE_URL}/readUser/${currentUser.id}`,
           {
             headers: {
@@ -45,12 +45,12 @@ export const UserDecks = () => {
             },
           }
         );
-        const user = response.data;
+        const user = await response.json();
 
         const userDecks = user.decks.map((deck) => ({
           DeckId: deck.id,
           UserProfileImage: user.profilePicture || "",
-          createdBy: user.username,
+          createdBy: user.uniqueUsername,
           title: deck.title,
           totalTerms: deck.cards.length,
         }));
@@ -92,7 +92,7 @@ export const UserDecks = () => {
     <div className="mt-28 flex flex-col items-center justify-start space-y-3 py-3">
       <span>
         <h1 className="mb-10 text-[2rem] font-semibold">
-          Welcome Sweetheart! Let's look at what you've created
+          {`Look at all the awesome flashcards you’ve made, ${currentUser.uniqueUsername}!`}
         </h1>
       </span>
       {/* decks */}
@@ -122,12 +122,12 @@ export const UserDecks = () => {
                     </h1>
                   )}
                 </span>
-                <h1>{item.createdBy}</h1>
+                <h1 className="font-medium">{item.createdBy}</h1>
                 <hr />
               </span>
-              <span className="bg-[#865555] rounded-full py-1 px-2 text-[10px]">
+              <span className="bg-[#865555] rounded-full py-1 px-2 text-[10px] font-medium">
                 <h1>
-                  Terms: {item.totalTerms > 10000 ? `10000+` : item.totalTerms}
+                  {item.totalTerms > 10000 ? `10000+` : item.totalTerms} Terms
                 </h1>
               </span>
             </span>
@@ -181,7 +181,7 @@ export const UserDecks = () => {
             </AlertDialog>
           </span>
 
-          <span className="w-full h-[60%] rounded-b-2xl flex justify-start items-center px-3 font-semibold text-[25px]">
+          <span className="w-full h-[60%] rounded-b-2xl flex justify-start items-center px-3 font-medium text-2xl">
             <h1>
               {item.title.length > 40
                 ? `${item.title.slice(0, 40)}...`
@@ -203,9 +203,7 @@ export const UserDecks = () => {
           <FontAwesomeIcon icon={faPlus} />
         </button>
         <span>
-          <h1 className="select-none font-semibold text-[0.9rem]">
-            create new set
-          </h1>
+          <h1 className="select-none font-medium text-sm">create new set</h1>
         </span>
       </div>
     </div>

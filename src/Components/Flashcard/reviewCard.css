@@ -34,7 +34,7 @@
   justify-content: center;
   border: 1px solid var(--cardBorderColor);
   border-radius: 10px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .card.flipped {
@@ -44,13 +44,10 @@
 .card .front {
   color: var(--cardFrontForegroundColor);
   background: var(--cardFrontBackgroundColor);
-  font-weight: 700;
-  font-size: 1rem;
-  z-index: 2;
+  z-index: 10;
 }
 
 .card .back {
-  font-size: 1.5rem;
   color: var(--cardBackForegroundColor);
   background: var(--cardBackBackgroundColor);
   transform: rotateY(-180deg);
@@ -77,7 +74,7 @@
   justify-content: center;
   align-items: center;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 400;
   background-color: #643b39;
 }
 
@@ -88,6 +85,7 @@
 .postpone--btn:focus {
   outline: none;
 }
+
 .card--image {
   max-width: 50%;
   max-height: 50%;
@@ -101,9 +99,17 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
-  overflow: hidden;
+  overflow: auto;
+}
+
+.img--parent h3 {
+  max-height: 25vh;
+  height: auto;
+  overflow-y: auto;
+  text-overflow: ellipsis;
+  white-space: normal;
 }

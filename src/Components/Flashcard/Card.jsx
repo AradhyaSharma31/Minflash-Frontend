@@ -51,7 +51,7 @@ export const Card = ({
         className="border-b-2 border-[#363a3b] w-[100%] flex items-center justify-between py-6 pr-6 pl-7"
         style={{ height: "calc(20% + 2px)" }}
       >
-        <span className="font-bold text-[1rem]">{index + 1}</span>
+        <span className="font-medium text-[0.9rem]">{index + 1}</span>
         <div className="space-x-3 flex justify-center items-center flex-row">
           {menu && (
             <div
@@ -97,12 +97,12 @@ export const Card = ({
         className="flex flex-row justify-between items-center px-7"
         style={{ height: "calc(80% - 2px)" }}
       >
-        <form className="w-[80%] flex flex-row justify-center items-center space-x-6">
+        <div className="w-[80%] flex flex-row justify-center items-center space-x-6">
           <span className="border-b-2 border-white w-[60%]">
             <input
               type="text"
               placeholder="Enter Term"
-              className="focus:bg-[#085044] px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
               onChange={(e) => handleInputChange("term", e.target.value)}
               value={card.term}
             />
@@ -112,12 +112,12 @@ export const Card = ({
             <input
               type="text"
               placeholder="Enter Definition"
-              className="focus:bg-[#085044] px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
               onChange={(e) => handleInputChange("definition", e.target.value)}
               value={card.definition}
             />
           </span>
-        </form>
+        </div>
         <div className="ml-5 h-[40%] w-[6rem] flex items-center justify-center flex-col text-[1.5rem] space-y-2 overflow-hidden">
           <label className="overflow-hidden border-[2px] border-white rounded-2xl border-dashed cursor-pointer h-[100%] w-[100%] flex flex-col justify-center items-center">
             {card.renderedImage ? (

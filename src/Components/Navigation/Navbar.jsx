@@ -147,7 +147,7 @@ const Navbar = () => {
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="Look up Sets created by other users"
+                placeholder="Search Flashcards"
                 className="w-full h-full text-sm py-1 ml-3 bg-[#13171b] outline-none"
               />
             </div>
@@ -222,13 +222,25 @@ const Navbar = () => {
                       className="bg-[#0f0f0f] flex flex-row items-center gap-4 px-3 py-2"
                     >
                       <span className="bg-[#271a1a] flex justify-center items-center rounded-full  h-[40px] w-[40px]">
-                        {currentUser.uniqueUsername.slice(0, 1).toUpperCase()}
+                        {imageURL ? (
+                          <img
+                            src={imageURL}
+                            alt={imageURL}
+                            className="object-cover rounded-full h-[100%] w-[100%]"
+                          />
+                        ) : (
+                          <h1>
+                            {currentUser.uniqueUsername
+                              .slice(0, 1)
+                              .toUpperCase()}
+                          </h1>
+                        )}
                       </span>
                       <span className="flex flex-col justify-start">
-                        <h1 className="text-[12px] font-semibold text-[#e9e3e3] flex justify-start">
+                        <h1 className="text-xs font-semibold text-[#e9e3e3] flex justify-start">
                           {currentUser.uniqueUsername}
                         </h1>
-                        <h1 className="text-[13px] text-[#cebcbc]">
+                        <h1 className="text-xs text-[#cebcbc]">
                           {currentUser.email.length > 18
                             ? `${currentUser.email.slice(0, 18)}...`
                             : currentUser.email}
@@ -247,7 +259,7 @@ const Navbar = () => {
                         src="../../../public/card-icon.png"
                         alt=""
                       />
-                      Your Sets
+                      <h1 className="text-sm font-medium">Your Sets</h1>
                     </li>
                     <li
                       onClick={() => {
@@ -256,7 +268,8 @@ const Navbar = () => {
                       }}
                       className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#312f2f] cursor-pointer"
                     >
-                      <FontAwesomeIcon icon={faGear} /> Settings
+                      <FontAwesomeIcon icon={faGear} />
+                      <h1 className="text-sm font-medium">Settings</h1>
                     </li>
                     <hr className="border-[#a58f8f]" />
                     <li
@@ -267,7 +280,7 @@ const Navbar = () => {
                       className="flex flex-row items-center gap-7 px-6 py-2 hover:bg-[#312f2f] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                      Logout
+                      <h1 className="text-sm font-medium">Logout</h1>
                     </li>
                   </ul>
                 </div>
@@ -277,13 +290,13 @@ const Navbar = () => {
             <div className="flex space-x-4">
               <button
                 onClick={openModal}
-                className="font-semibold hover:text-[1.15rem] transition-all duration-100 ease-in-out"
+                className="font-medium text-sm hover:text-[1rem] transition-all duration-100 ease-in-out"
               >
                 Sign Up
               </button>
               <button
                 onClick={openModal}
-                className="border border-white bg-white text-black font-semibold py-2 px-4 rounded-full hover:bg-transparent hover:text-white transition duration-200"
+                className="border border-white bg-white text-black font-medium text-sm py-2 px-4 rounded-full hover:bg-transparent hover:text-white transition duration-200"
               >
                 Log in
               </button>
