@@ -222,7 +222,7 @@ const Navbar = () => {
                       }}
                       className="bg-[#00051A] flex flex-row items-center gap-4 px-3 py-2"
                     >
-                      <span className="bg-[#271a1a] flex justify-center items-center rounded-full  h-[40px] w-[40px]">
+                      <span className="bg-[#271a1a] flex justify-center items-center rounded-full  h-[30px] w-[30px]">
                         {imageURL ? (
                           <img
                             src={imageURL}
