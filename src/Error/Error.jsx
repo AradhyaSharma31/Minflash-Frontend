@@ -7,10 +7,7 @@ export const Error = () => {
   return (
     <div className="h-[100vh] space-y-10 flex flex-col justify-center items-center pt-20">
       <img className="w-[500px] h-[500px]" src={errorImage} alt="Error" />
-      <button
-        onClick={() => navigate("/")}
-        className="sm:top-4 border w-28 h-10 rounded-full text-black bg-[#ffffff] font-semibold hover:bg-[#1e1e1e] hover:text-[#ffffff] transition-all duration-200 ease-in-out"
-      >
+      <button onClick={() => navigate("/")} className="default-btn">
         Go Back
       </button>
     </div>

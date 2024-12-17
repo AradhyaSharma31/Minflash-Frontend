@@ -37,6 +37,7 @@ export const Main = () => {
 
     animateBlocks();
 
+    // cleanup operation
     return () => {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
@@ -52,7 +53,7 @@ export const Main = () => {
         className="container w-screen h-screen absolute inset-0 -z-10"
       />
       {/* Main Content */}
-      <span className="font-bold w-full text-[2rem] lg:text-[4rem] flex items-center justify-center flex-col">
+      <span className="font-bold w-full text-[2rem] lg:text-[3.5rem] sm:text-[2.5rem] flex items-center justify-center flex-col">
         <h1>Your ideas, your flashcards.</h1>
         <h1>design flashcards your way!</h1>
       </span>
@@ -61,7 +62,7 @@ export const Main = () => {
           navigate("/user/edit");
           updateDeckId(null);
         }}
-        className="flex flex-row items-center space-x-3 hover:text-white focus:bg-[#141313] focus:text-white hover:bg-[#1f1d1d] transition-all duration-200 text-black font-semibold bg-blue-100 mt-10 px-5 py-3 rounded-3xl"
+        className="flex flex-row items-center space-x-3 hover:text-white hover:bg-[#1e3a65] focus:outline-2 transition-all duration-200 text-black font-semibold bg-blue-100 mt-10 px-5 py-3 rounded-3xl"
       >
         <h1 className="text-sm font-semibold">Create A Set</h1>
         <FontAwesomeIcon icon={faPlus} />

@@ -1,0 +1,24 @@
+.default-btn {
+  width: 100px;
+  font-size: small;
+  padding: 8px 4px;
+  background-color: #27487d;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.default-btn:hover {
+  background-color: #1e3a65;
+  transform: scale(1.05);
+}
+
+.default-btn:active {
+  background-color: #142746;
+  transform: scale(0.98);
+}
+
+.default-btn:focus {
+  outline: 2px solid #3d5e9b;
+}

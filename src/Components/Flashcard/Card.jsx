@@ -46,9 +46,9 @@ export const Card = ({
   };
 
   return (
-    <div className="my-10 bg-[#004d40] text-[#fff] rounded-lg w-[100%] h-52 overflow-hidden">
+    <div className="my-10 bg-gradient-to-br from-[#1B2B5A] to-[#152243] text-[#fff] rounded-lg w-[100%] h-52 overflow-hidden">
       <div
-        className="border-b-2 border-[#363a3b] w-[100%] flex items-center justify-between py-6 pr-6 pl-7"
+        className="border-b border-[#000725] w-[100%] flex items-center justify-between py-6 pr-6 pl-7"
         style={{ height: "calc(20% + 2px)" }}
       >
         <span className="font-medium text-[0.9rem]">{index + 1}</span>
@@ -56,7 +56,7 @@ export const Card = ({
           {menu && (
             <div
               id="menu"
-              className="bg-[#2b3129] w-20 h-[2rem] px-1 flex justify-between items-center rounded-full overflow-hidden"
+              className="bg-[#0D1B2A] w-20 h-[2rem] px-1 flex justify-between items-center rounded-full overflow-hidden"
             >
               <span
                 onClick={addCard}
@@ -102,7 +102,7 @@ export const Card = ({
             <input
               type="text"
               placeholder="Enter Term"
-              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              className="focus:bg-[#2A3E5C] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
               onChange={(e) => handleInputChange("term", e.target.value)}
               value={card.term}
             />
@@ -112,7 +112,7 @@ export const Card = ({
             <input
               type="text"
               placeholder="Enter Definition"
-              className="focus:bg-[#085044] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
+              className="focus:bg-[#2A3E5C] text-[#d2d8da] text-sm px-1 h-10 w-[100%] bg-transparent focus:outline-none focus:border-b-2"
               onChange={(e) => handleInputChange("definition", e.target.value)}
               value={card.definition}
             />

@@ -148,10 +148,16 @@ export const ExploreReviewDeck = () => {
         )}
       </div>
       <div className="w-full flex justify-center gap-3">
-        <button className="postpone--btn" onClick={handlePrevCard}>
+        <button
+          className="postpone--btn h-12 w-24 rounded-3xl text-lg"
+          onClick={handlePrevCard}
+        >
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
-        <button className="postpone--btn" onClick={handleNextCard}>
+        <button
+          className="postpone--btn h-12 w-24 rounded-3xl text-lg"
+          onClick={handleNextCard}
+        >
           <FontAwesomeIcon icon={faChevronRight} />
         </button>
       </div>

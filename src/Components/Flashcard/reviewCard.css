@@ -1,10 +1,10 @@
 :root {
   --backgroundColor: #e7bdd6;
-  --cardFrontBackgroundColor: #ffffff;
-  --cardFrontForegroundColor: #fc545e;
-  --cardBackBackgroundColor: #7e4a4d;
+  --cardFrontBackgroundColor: #1b2b5a;
+  --cardFrontForegroundColor: #ffffff;
+  --cardBackBackgroundColor: #121b45;
   --cardBackForegroundColor: #ffffff;
-  --cardBorderColor: #965a5e;
+  --cardBorderColor: #2e436d;
 }
 
 .card-wrapper {
@@ -75,15 +75,15 @@
   align-items: center;
   font-size: 10px;
   font-weight: 400;
-  background-color: #643b39;
+  background-color: #1f2a5b;
 }
 
 .postpone--btn:hover {
-  background-color: #583230;
+  background-color: #182146;
 }
 
 .postpone--btn:focus {
-  outline: none;
+  outline: 2px solid #ffffff;
 }
 
 .card--image {

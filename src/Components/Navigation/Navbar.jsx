@@ -129,7 +129,7 @@ const Navbar = () => {
       <header className="select-none fixed top-0 left-0 w-full z-50 text-[#F0F4F8] bg-transparent transition-all duration-300 ease-in-out">
         <div
           className={`${
-            scrollPosition >= 70 ? "py-4 bg-[#212327]" : "py-6"
+            scrollPosition >= 70 ? "py-4 bg-[#02112E]" : "py-6"
           } flex justify-between items-center px-6 md:px-12 lg:px-16 transition-all duration-300 ease-in-out`}
         >
           <div className="cursor-pointer" onClick={() => navigate("/")}>
@@ -138,7 +138,7 @@ const Navbar = () => {
 
           {/* Deck Explore Search */}
           <div className="w-[50%] flex flex-col relative mx-auto">
-            <div className="border border-gray-500 bg-[#13171b] rounded-md overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
+            <div className="border border-blue-900 bg-[#02112E] rounded-md overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 className="cursor-pointer"
@@ -148,13 +148,13 @@ const Navbar = () => {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search Flashcards"
-                className="w-full h-full text-sm py-1 ml-3 bg-[#13171b] outline-none"
+                className="w-full h-full text-sm py-1 ml-3 bg-[#02112E] outline-none"
               />
             </div>
 
             {/* Search Dropdown */}
             {searchInput && filteredDecks.length > 0 && (
-              <div className="border border-gray-700 absolute top-full left-1/2 transform -translate-x-1/2 w-full h-52 bg-[#13171b] overflow-y-auto overflow-x-hidden shadow-lg rounded-md mt-1 p-2">
+              <div className="border border-blue-900 absolute top-full left-1/2 transform -translate-x-1/2 w-full h-52 bg-[#02112E] overflow-y-auto overflow-x-hidden shadow-lg rounded-md mt-1 p-2">
                 {filteredDecks.map((d) => (
                   <span
                     key={d.DeckId}
@@ -163,14 +163,15 @@ const Navbar = () => {
                       navigate(`/user/explore/${d.DeckId}`);
                       window.location.reload(true);
                     }}
-                    className="overflow-hidden flex flex-row items-center gap-5 w-full h-14 bg-[#1f1f23] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#29292e] transition duration-200 cursor-pointer"
+                    className="overflow-hidden flex flex-row items-center gap-5 w-full h-14 bg-[#042443] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#233559] transition duration-200 cursor-pointer"
                   >
                     <h1 className="font-semibold lg:text-lg sm:text-sm">
-                      {d.title.length > 20
-                        ? `${d.title.slice(0, 20)}...`
-                        : d.title}
+                      {d.title.charAt(0).toUpperCase() +
+                        (d.title.length > 25
+                          ? `${d.title.slice(1, 25)}...`
+                          : d.title.slice(1))}
                     </h1>
-                    <h1 className="bg-[#865555] rounded-full py-1 px-2 text-[10px]">
+                    <h1 className="bg-[#0D1B2A] rounded-full py-1 px-2 text-[10px]">
                       {d.totalTerms > 1000 ? `1000+` : `Terms: ${d.totalTerms}`}
                     </h1>
                   </span>
@@ -183,7 +184,7 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <div
                 onClick={handleProfileClicks}
-                className="cursor-pointer border-2 border-[#dbcdcd] rounded-full flex justify-between items-center flex-row w-[5.2rem] pr-4 pl-1 py-1"
+                className="cursor-pointer border-2 border-blue-900 rounded-full flex justify-between items-center flex-row w-[5.2rem] pr-4 pl-1 py-1"
               >
                 <div className="select-none cursor-pointer h-8 w-8 rounded-full bg-[#a9a9af] text-[#F0F4F8] flex justify-center items-center font-semibold">
                   {imageURL ? (
@@ -213,13 +214,13 @@ const Navbar = () => {
               </div>
 
               {clickProfile && (
-                <div className="absolute right-0 mt-2 w-52 bg-[#1a1a1a] text-white border border-[#a58f8f] rounded-md shadow-lg">
+                <div className="absolute right-0 mt-2 w-52 bg-[#02112E] text-white border border-blue-900 rounded-md shadow-lg">
                   <ul className="py-2">
                     <li
                       onClick={() => {
                         handleCloseMenu();
                       }}
-                      className="bg-[#0f0f0f] flex flex-row items-center gap-4 px-3 py-2"
+                      className="bg-[#00051A] flex flex-row items-center gap-4 px-3 py-2"
                     >
                       <span className="bg-[#271a1a] flex justify-center items-center rounded-full  h-[40px] w-[40px]">
                         {imageURL ? (
@@ -252,7 +253,7 @@ const Navbar = () => {
                         handleCloseMenu();
                         navigate("/user/sets");
                       }}
-                      className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#312f2f] cursor-pointer"
+                      className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <img
                         className="h-[17px] w-[20px]"
@@ -266,7 +267,7 @@ const Navbar = () => {
                         handleCloseMenu();
                         navigate(`user/${currentUser.uniqueUsername}/profile`);
                       }}
-                      className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#312f2f] cursor-pointer"
+                      className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faGear} />
                       <h1 className="text-sm font-medium">Settings</h1>
@@ -277,7 +278,7 @@ const Navbar = () => {
                         handleCloseMenu;
                         logout();
                       }}
-                      className="flex flex-row items-center gap-7 px-6 py-2 hover:bg-[#312f2f] cursor-pointer"
+                      className="flex flex-row items-center gap-7 px-6 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faArrowRightFromBracket} />
                       <h1 className="text-sm font-medium">Logout</h1>
@@ -290,10 +291,11 @@ const Navbar = () => {
             <div className="flex space-x-4">
               <button
                 onClick={openModal}
-                className="font-medium text-sm hover:text-[1rem] transition-all duration-100 ease-in-out"
+                className="font-medium text-sm hover:scale-110 transition-all duration-100 ease-in-out"
               >
                 Sign Up
               </button>
+
               <button
                 onClick={openModal}
                 className="border border-white bg-white text-black font-medium text-sm py-2 px-4 rounded-full hover:bg-transparent hover:text-white transition duration-200"

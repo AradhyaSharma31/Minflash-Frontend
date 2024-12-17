@@ -104,9 +104,11 @@ export const UserDecks = () => {
             window.location.reload(true);
           }}
           key={key}
-          className="cursor-pointer w-[95%] h-24 rounded-2xl bg-[#463b3b] hover:bg-[#504444] flex justify-center items-center flex-col space-y-1 py-1s"
+          className="w-[95%] h-24 rounded-2xl bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
+          my-2 cursor-pointer transition-all duration-200 ease-in-out
+          hover:bg-[#233559] hover:shadow-lg"
         >
-          <span className="border-b border-[#2c2828] font-semibold text-[12px] w-full h-[40%] flex justify-between items-center rounded-t-2xl px-3 space-x-2">
+          <span className="border-b border-[#000725] font-semibold text-[12px] w-full h-[40%] flex justify-between items-center rounded-t-2xl px-3 space-x-2">
             <span className="flex flex-row items-center">
               <span className="flex flex-row items-center space-x-2">
                 <span className="h-5 w-5 rounded-full overflow-hidden flex justify-center items-center select-none bg-yellow-700">
@@ -125,7 +127,7 @@ export const UserDecks = () => {
                 <h1 className="font-medium">{item.createdBy}</h1>
                 <hr />
               </span>
-              <span className="bg-[#865555] rounded-full py-1 px-2 text-[10px] font-medium">
+              <span className="bg-[#0D1B2A] rounded-full py-1 px-2 text-[10px] font-medium">
                 <h1>
                   {item.totalTerms > 10000 ? `10000+` : item.totalTerms} Terms
                 </h1>
@@ -136,9 +138,9 @@ export const UserDecks = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                togglePopover(item.DeckId); // Pass the deck's ID to togglePopover
+                togglePopover(item.DeckId);
               }}
-              className="px-2 py-1 rounded-lg hover:bg-[#695b5b]"
+              className="px-2 py-1 rounded-lg hover:bg-[#3A567F]"
             >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
@@ -180,25 +182,29 @@ export const UserDecks = () => {
               </AlertDialogContent>
             </AlertDialog>
           </span>
-
           <span className="w-full h-[60%] rounded-b-2xl flex justify-start items-center px-3 font-medium text-2xl">
             <h1>
-              {item.title.length > 40
-                ? `${item.title.slice(0, 40)}...`
-                : item.title}
+              {item.title.charAt(0).toUpperCase() +
+                (item.title.length > 40
+                  ? `${item.title.slice(1, 40)}...`
+                  : item.title.slice(1))}
             </h1>
           </span>
         </div>
       ))}
 
       {/* add deck */}
-      <div className="w-[95%] h-24 rounded-2xl bg-[#463b3b] hover:bg-[#504444] flex justify-center items-center flex-col space-y-1 py-1s">
+      <div
+        className="w-[95%] h-24 rounded-2xl flex justify-center items-center flex-col space-y-1 py-1s bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
+          my-2 cursor-pointer transition-all duration-200 ease-in-out
+          hover:bg-[#233559] hover:shadow-lg"
+      >
         <button
           onClick={() => {
             navigate("/user/edit");
             updateDeckId(null);
           }}
-          className="card--shadow cursor-pointer h-12 w-12 transition-all ease-in-out duration-150 rounded-full text-[25px] flex justify-center items-center bg-[#6e5b5b] hover:bg-[#796767] focus:border-2"
+          className="card--shadow cursor-pointer h-12 w-12 transition-all ease-in-out duration-150 rounded-full text-[25px] flex justify-center items-center bg-[#324B73] hover:bg-[#405B8A] focus:border-2"
         >
           <FontAwesomeIcon icon={faPlus} />
         </button>

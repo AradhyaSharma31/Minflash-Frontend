@@ -370,7 +370,11 @@ export const Registration = ({ isOpen, handleClose }) => {
                     }}
                     disabled={timer > 0}
                     autoFocus
-                    className="bg-[#27272e] w-[25%] text-sm font-medium"
+                    className={
+                      timer > 0
+                        ? `bg-[#27272e] w-[25%] text-sm font-medium`
+                        : `bg-[#27272e] w-[25%] text-sm font-medium cursor-pointer`
+                    }
                   >
                     {timer > 0 ? `${timer}s` : "Resend"}
                   </button>
@@ -398,7 +402,7 @@ export const Registration = ({ isOpen, handleClose }) => {
 
               {/* submit button */}
               <button
-                className="py-3 rounded-3xl font-medium bg-[#27272e] hover:bg-[#1f1f22]"
+                className="py-3 rounded-3xl font-medium text-[#333] bg-white hover:text-white hover:bg-[#333] transition-all duration-300 ease-in-out"
                 type="submit"
               >
                 Continue

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./reviewCard.css";
+import "../Button/GlobalButton.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -187,7 +188,7 @@ export const ReviewCard = () => {
               onClick={() => {
                 navigate("/user/edit");
               }}
-              className="w-[100px] text-sm px-1 py-2 font-normal rounded-md bg-[#201e1e] focus:border-2"
+              className="default-btn"
             >
               <FontAwesomeIcon
                 style={{ marginRight: "15px" }}
@@ -197,7 +198,7 @@ export const ReviewCard = () => {
             </button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <button className="w-[100px] text-sm px-1 py-2 font-normal rounded-md bg-[#201e1e] focus:border-2">
+                <button className="default-btn">
                   <FontAwesomeIcon
                     style={{ marginRight: "15px" }}
                     icon={faSync}
@@ -265,9 +266,9 @@ export const ReviewCard = () => {
             <div className="back">
               <div className="img--parent">
                 <h3>{currentCard.definition}</h3>
-                {/* {currentCard.image && ( */}
-                <img className="card--image" src={imageUrl} alt={imageUrl} />
-                {/* // )} */}
+                {currentCard.image !== "null" && (
+                  <img className="card--image" src={imageUrl} alt={imageUrl} />
+                )}
               </div>
               <div className="postpone--btns">
                 <button
