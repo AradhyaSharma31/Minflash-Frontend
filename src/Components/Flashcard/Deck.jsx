@@ -390,7 +390,7 @@ export const Deck = () => {
   };
 
   return (
-    <div className="mt-32 h-[100%]">
+    <div className="mt-32 h-full">
       <div className="flex h-12">
         <h1 className="text-3xl font-semibold">
           {deckId !== "null" ? `Edit Set` : `Create Set`}

@@ -173,7 +173,7 @@ export const ReviewCard = () => {
   };
 
   return (
-    <div className="h-auto mt-40 flex flex-col items-center space-y-3">
+    <div className="h-full mt-48 flex flex-col items-center">
       {deck && (
         <div className="w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] flex flex-row items-end justify-between px-1">
           <h1 className="text-[1.75rem] font-semibold">
@@ -233,7 +233,7 @@ export const ReviewCard = () => {
         </div>
       )}
       <div
-        className="card-wrapper flex justify-center items-center h-[70%] w-[100%]"
+        className="card-wrapper mt-4 flex justify-center items-center w-[100%]"
         onClick={handleCardClick}
       >
         {messageCard ? (

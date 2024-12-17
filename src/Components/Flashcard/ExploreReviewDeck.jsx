@@ -110,7 +110,7 @@ export const ExploreReviewDeck = () => {
   };
 
   return (
-    <div className="h-auto mt-40 flex flex-col items-center space-y-3">
+    <div className="h-full mt-36 flex flex-col items-center space-y-3">
       {deck && (
         <div className="w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] flex flex-row items-end justify-between px-1">
           <h1 className="text-[2rem] font-semibold">
@@ -122,7 +122,7 @@ export const ExploreReviewDeck = () => {
         </div>
       )}
       <div
-        className="card-wrapper flex justify-center items-center h-[70%] w-[100%]"
+        className="card-wrapper flex justify-center items-center w-[100%]"
         onClick={handleCardClick}
       >
         {deck && deck.cards.length > 0 && (

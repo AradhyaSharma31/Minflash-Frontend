@@ -89,7 +89,7 @@ export const UserDecks = () => {
   };
 
   return (
-    <div className="mt-28 flex flex-col items-center justify-start space-y-3 py-3">
+    <div className="h-full mt-28 flex flex-col items-center justify-start space-y-3 py-3">
       <span>
         <h1 className="mb-10 text-[2rem] font-semibold">
           {`Look at all the awesome flashcards you’ve made, ${currentUser.uniqueUsername}!`}

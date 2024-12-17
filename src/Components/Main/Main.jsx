@@ -46,7 +46,7 @@ export const Main = () => {
   }, []);
 
   return (
-    <div className="h-full mt-26 flex flex-col justify-center items-center overflow-hidden">
+    <div className="mt-52 h-full flex flex-col justify-center items-center overflow-hidden">
       {/* 3D Animation Container */}
       <div
         ref={containerRef}

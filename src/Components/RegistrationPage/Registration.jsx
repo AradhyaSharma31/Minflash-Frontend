@@ -123,47 +123,6 @@ export const Registration = ({ isOpen, handleClose }) => {
       });
   };
 
-  // const submitForm = (e) => {
-  //   e.preventDefault();
-
-  //   signUp(data)
-  //     .then((resp) => {
-  //       console.log(resp);
-  //       console.log("Successful registration");
-
-  //       setError({ errs: [], isError: false });
-  //       handleClose();
-  //       toast.success("Registration successful!");
-
-  //       // Set login details
-  //       setLoginDetail({
-  //         email: data.email,
-  //         password: data.password,
-  //       });
-
-  //       // Trigger login with a 1-second delay to ensure registration completes on the server
-  //       setTimeout(() => {
-  //         handleLoginSubmit(e);
-  //       }, 3000);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Registration error:", err);
-
-  //       const errors = err?.response?.data?.errors;
-  //       const errorMessages = Array.isArray(errors)
-  //         ? errors
-  //         : [
-  //             errors?.message ||
-  //               "Registration error: Invalid Credentials. Please try again with different credentials",
-  //           ];
-
-  //       setError({
-  //         errs: errorMessages,
-  //         isError: true,
-  //       });
-  //     });
-  // };
-
   const submitForm = (e) => {
     e.preventDefault();
     if (!otpSent) {
