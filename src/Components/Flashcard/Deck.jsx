@@ -41,7 +41,6 @@ export const Deck = () => {
 
   useEffect(() => {
     const fetchDeck = async () => {
-      console.log(deckId);
       if (deckId === "null") return;
 
       try {
@@ -71,7 +70,6 @@ export const Deck = () => {
             image: card?.image,
           })),
         });
-        console.log("Loaded deck:", fetchedDeck);
       } catch (error) {
         console.error("Error fetching deck:", error);
       }
@@ -129,7 +127,6 @@ export const Deck = () => {
       );
     } catch (e) {
       console.error("Error Deleting Image:", e);
-      toast.error("Error Deleting Image");
     }
   };
 
@@ -179,8 +176,6 @@ export const Deck = () => {
       definition: "",
       image: null,
     };
-
-    console.log("deckId:", deckId); // Log to verify deckId value
 
     if (deckId !== "null") {
       try {
@@ -267,7 +262,6 @@ export const Deck = () => {
     deck.cards.forEach((card) => {
       if (!card.term || !card.definition) {
         allCardsValid = false;
-        console.log("Card invalid:", card);
       }
     });
 
@@ -275,7 +269,6 @@ export const Deck = () => {
       try {
         if (deckId !== "null") {
           await updateDeck(deckId, deck.title, deck.description);
-          console.log("Deck updated with ID:", deckId);
 
           const cardPromises = deck.cards.map((card) =>
             card.isUpdated
@@ -295,8 +288,6 @@ export const Deck = () => {
           window.location.reload(true);
         } else {
           const deckResponse = await createDeck(deck.title, deck.description);
-
-          console.log(deckResponse);
 
           const newDeckId = deckResponse.data.id;
 
@@ -365,9 +356,6 @@ export const Deck = () => {
     if (cardData.file) {
       formData.append("file", cardData?.file);
     }
-
-    console.log("Image in createCard: " + cardData.image);
-    console.log("file in createCard: " + cardData.file);
 
     try {
       const response = await axiosInstance.post(

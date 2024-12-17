@@ -107,7 +107,6 @@ export const UserProfile = () => {
         }
 
         const data = await response.json();
-        console.log(data);
 
         // get url if picture exists
         if (data.profilePicture) {

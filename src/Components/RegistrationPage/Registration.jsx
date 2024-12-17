@@ -88,20 +88,15 @@ export const Registration = ({ isOpen, handleClose }) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(loginDetail);
 
     Login(loginDetail)
       .then((jwtTokenData) => {
-        console.log("user Login: ");
-        console.log(jwtTokenData);
-
         setLoginError({
           errs: "",
           isError: false,
         });
 
         doLogin(jwtTokenData, () => {
-          console.log("Login Detail is Saved to local storage");
           handleClose();
           navigate("/");
           window.location.reload(true);
@@ -118,8 +113,6 @@ export const Registration = ({ isOpen, handleClose }) => {
               : "PLease try again later with different credentials",
           isError: true,
         });
-        console.log("console ran");
-        console.log(err);
       });
   };
 
@@ -129,7 +122,6 @@ export const Registration = ({ isOpen, handleClose }) => {
       // Step 1: Register and Send OTP
       signUp(data)
         .then((response) => {
-          console.log(response);
           setOtpSent(true);
           setError({ errs: [], isError: false });
           setTimer(300); // Start 5-minute countdown
@@ -141,7 +133,7 @@ export const Registration = ({ isOpen, handleClose }) => {
           });
         })
         .catch((err) => {
-          console.log("Registration error:", err);
+          console.error("Registration error:", err);
 
           const errors = err?.response?.data?.errors;
           const errorMessages = Array.isArray(errors)
@@ -160,7 +152,6 @@ export const Registration = ({ isOpen, handleClose }) => {
       // Step 2: Complete Registration with OTP
       completeRegistration(data.email, otp, data)
         .then((resp) => {
-          console.log(resp);
           setError({ errs: [], isError: false });
           handleClose();
           toast.success("Registration successful!");
