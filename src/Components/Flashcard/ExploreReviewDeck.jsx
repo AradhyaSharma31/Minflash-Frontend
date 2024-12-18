@@ -103,6 +103,35 @@ export const ExploreReviewDeck = () => {
     }
   };
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      switch (event.key) {
+        case "ArrowRight":
+        case "d":
+        case "D":
+          handleNextCard();
+          break;
+        case "ArrowLeft":
+        case "a":
+        case "A":
+          handlePrevCard();
+          break;
+        case " ":
+          event.preventDefault();
+          setIsFlipped((prev) => !prev);
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [handleNextCard, handlePrevCard]);
+
   const getCardImage = async (userId, deckId, cardId, image) => {
     return await fetch(
       `http://localhost:9030/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${image}`

@@ -191,7 +191,7 @@ export const Deck = () => {
           {
             term: newCard.term,
             definition: newCard.definition,
-            image: newCard.image,
+            image: newCard?.image ? newCard?.image : "null",
           },
           {
             headers: {
@@ -218,6 +218,32 @@ export const Deck = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    const handleKeyPress = async (event) => {
+      const activeElement = document.activeElement;
+
+      const isInputActive =
+        activeElement.tagName === "INPUT" ||
+        activeElement.tagName === "TEXTAREA" ||
+        activeElement.isContentEditable;
+
+      if (isInputActive) {
+        return;
+      }
+
+      if (event.key === "N" || event.key === "n") {
+        event.preventDefault();
+        await addCard();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [addCard]);
 
   // delete card method
   const deleteCard = async (cardId) => {
