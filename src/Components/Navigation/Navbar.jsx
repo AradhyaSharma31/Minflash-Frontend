@@ -138,7 +138,7 @@ const Navbar = () => {
 
           {/* Deck Explore Search */}
           <div className="w-[50%] flex flex-col relative mx-auto">
-            <div className="border border-blue-900 bg-[#02112E] rounded-md overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
+            <div className="border border-blue-900 bg-[#02112E] rounded-xl overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 className="cursor-pointer"
@@ -242,8 +242,8 @@ const Navbar = () => {
                           {currentUser.uniqueUsername}
                         </h1>
                         <h1 className="text-xs text-[#cebcbc]">
-                          {currentUser.email.length > 18
-                            ? `${currentUser.email.slice(0, 18)}...`
+                          {currentUser.email.length > 15
+                            ? `${currentUser.email.slice(0, 15)}...`
                             : currentUser.email}
                         </h1>
                       </span>

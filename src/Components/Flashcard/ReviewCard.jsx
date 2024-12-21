@@ -194,7 +194,7 @@ export const ReviewCard = () => {
                 style={{ marginRight: "15px" }}
                 icon={faPenToSquare}
               />
-              Edit
+              <span>Edit</span>
             </button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -203,7 +203,7 @@ export const ReviewCard = () => {
                     style={{ marginRight: "15px" }}
                     icon={faSync}
                   />
-                  Reset
+                  <span>Reset</span>
                 </button>
               </AlertDialogTrigger>
               <AlertDialogContent className="bg-[#15171a] border border-gray-700 rounded-lg shadow-lg">
