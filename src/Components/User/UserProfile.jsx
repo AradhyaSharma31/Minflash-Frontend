@@ -20,13 +20,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../../Components/ui/alert-dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "../../components/ui/select";
 import { useNavigate } from "react-router-dom";
 
 export const UserProfile = () => {
