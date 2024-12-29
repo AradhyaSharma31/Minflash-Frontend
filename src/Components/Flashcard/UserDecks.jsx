@@ -17,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../../Components/ui/alert-dialog";
-const API_BASE_URL = "http://localhost:9030/flashcard/user";
+const API_BASE_URL = "https://minflashcards.onrender.com/flashcard/user";
 
 export const UserDecks = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export const UserDecks = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:9030/flashcard/edit/deleteDeck/${deckId}?userId=${currentUser.id}`,
+        `https://minflashcards.onrender.com/flashcard/edit/deleteDeck/${deckId}?userId=${currentUser.id}`,
         {
           method: "DELETE",
           headers: {

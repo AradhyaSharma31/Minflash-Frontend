@@ -35,7 +35,7 @@ export const completeRegistration = (email, otp, data) => {
 // token in auth header
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:9030/flashcard",
+  baseURL: "https://minflashcards.onrender.com/flashcard",
   headers: {
     "Content-Type": "application/json",
   },

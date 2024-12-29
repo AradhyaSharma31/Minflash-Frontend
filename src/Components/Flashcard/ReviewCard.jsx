@@ -33,7 +33,7 @@ export const ReviewCard = () => {
     const fetchDeck = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9030/flashcard/edit/getDeck/${deckId}?userId=${userId}`,
+          `https://minflashcards.onrender.com/flashcard/edit/getDeck/${deckId}?userId=${userId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export const ReviewCard = () => {
   const getImageUrl = async (token, userId, deckId, cardId, file) => {
     try {
       const response = await fetch(
-        `http://localhost:9030/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${file}`,
+        `https://minflashcards.onrender.com/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${file}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export const ReviewCard = () => {
   const handleReset = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9030/flashcard/edit/resetDeck/${deckId}?userId=${userId}`,
+        `https://minflashcards.onrender.com/flashcard/edit/resetDeck/${deckId}?userId=${userId}`,
         {
           method: "PUT",
           headers: {
@@ -144,7 +144,7 @@ export const ReviewCard = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:9030/flashcard/edit/${currentCard.id}/updatePerformance?performance=${performance}&deckId=${deckId}&userId=${userId}`,
+        `https://minflashcards.onrender.com/flashcard/edit/${currentCard.id}/updatePerformance?performance=${performance}&deckId=${deckId}&userId=${userId}`,
         {
           method: "PUT",
           headers: {

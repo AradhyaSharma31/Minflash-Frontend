@@ -45,7 +45,7 @@ export const Deck = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:9030/flashcard/edit/getDeck/${deckId}?userId=${user.id}`,
+          `https://minflashcards.onrender.com/flashcard/edit/getDeck/${deckId}?userId=${user.id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export const Deck = () => {
 
   const getCard = async (cardId) => {
     return await fetch(
-      `http://localhost:9030/flashcard/edit/getCard?deckId=${deckId}&cardId=${cardId}`
+      `https://minflashcards.onrender.com/flashcard/edit/getCard?deckId=${deckId}&cardId=${cardId}`
     );
   };
 
@@ -187,7 +187,7 @@ export const Deck = () => {
         }
 
         const response = await axios.post(
-          `http://localhost:9030/flashcard/edit/createCard/${deckId}`,
+          `https://minflashcards.onrender.com/flashcard/edit/createCard/${deckId}`,
           {
             term: newCard.term,
             definition: newCard.definition,

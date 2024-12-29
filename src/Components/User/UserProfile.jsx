@@ -55,7 +55,7 @@ export const UserProfile = () => {
       // Delete the previous image if it exists
       if (previousImage) {
         const deleteResponse = await fetch(
-          `http://localhost:9030/flashcard/blob/delete-profile?userId=${user.id}&fileName=${previousImage}`,
+          `https://minflashcards.onrender.com/flashcard/blob/delete-profile?userId=${user.id}&fileName=${previousImage}`,
           {
             method: "DELETE",
             headers: {
@@ -75,7 +75,7 @@ export const UserProfile = () => {
 
       // Update profile image
       const updateResponse = await fetch(
-        `http://localhost:9030/flashcard/blob/update-profile`,
+        `https://minflashcards.onrender.com/flashcard/blob/update-profile`,
         {
           method: "PUT",
           headers: {
@@ -99,7 +99,7 @@ export const UserProfile = () => {
       // fetching user
       try {
         const response = await fetch(
-          `http://localhost:9030/flashcard/user/readUser/${user.id}`
+          `https://minflashcards.onrender.com/flashcard/user/readUser/${user.id}`
         );
 
         if (!response.ok) {
@@ -111,7 +111,7 @@ export const UserProfile = () => {
         // get url if picture exists
         if (data.profilePicture) {
           const profileUrlResponse = await fetch(
-            `http://localhost:9030/flashcard/blob/get-profile-url?userId=${user.id}&file=${data.profilePicture}`
+            `https://minflashcards.onrender.com/flashcard/blob/get-profile-url?userId=${user.id}&file=${data.profilePicture}`
           );
 
           if (!profileUrlResponse.ok) {
@@ -150,7 +150,7 @@ export const UserProfile = () => {
       setError("");
 
       await axios.post(
-        `http://localhost:9030/flashcard/user/deleteUser/${user.id}`,
+        `https://minflashcards.onrender.com/flashcard/user/deleteUser/${user.id}`,
         {
           password,
         },

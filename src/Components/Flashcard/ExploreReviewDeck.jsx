@@ -21,7 +21,7 @@ export const ExploreReviewDeck = () => {
     const fetchDeck = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9030/flashcard/edit/getReviewDeck/${deckId}`,
+          `https://minflashcards.onrender.com/flashcard/edit/getReviewDeck/${deckId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -134,7 +134,7 @@ export const ExploreReviewDeck = () => {
 
   const getCardImage = async (userId, deckId, cardId, image) => {
     return await fetch(
-      `http://localhost:9030/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${image}`
+      `https://minflashcards.onrender.com/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${image}`
     );
   };
 

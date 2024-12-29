@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import { DeckContext } from "../../../src/Context/DeckProvider";
 
-const API_BASE_URL = "http://localhost:9030/flashcard/edit";
+const API_BASE_URL = "https://minflashcards.onrender.com/flashcard/edit";
 
 const Navbar = () => {
   const { updateDeckId } = useContext(DeckContext);
