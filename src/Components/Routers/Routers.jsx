@@ -18,7 +18,6 @@ export const Routers = () => {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/*" element={<Error />} />
         <Route path="/user" element={<PrivateRouters />}>
           <Route path="edit" element={<Deck />} />
           <Route
@@ -32,6 +31,8 @@ export const Routers = () => {
             element={<ExploreReviewDeck />}
           />
         </Route>
+
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   );
