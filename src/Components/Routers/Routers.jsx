@@ -24,12 +24,10 @@ export const Routers = () => {
             element={<UserProfile />}
           />
 
-          {/* Dynamically pass the deckId using route parameter */}
           <Route path="review/:deckId" element={<ReviewCard />} />
 
           <Route path="sets" element={<UserDecks />} />
 
-          {/* Dynamically pass the deckId using route parameter */}
           <Route path="explore/:deckId" element={<ExploreReviewDeck />} />
         </Route>
 
