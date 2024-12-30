@@ -11,7 +11,6 @@ import { getCurrentUserDetail } from "../../Auth/auth";
 import { ExploreReviewDeck } from "../Flashcard/ExploreReviewDeck";
 
 export const Routers = () => {
-  const currentDeckId = sessionStorage.getItem("currentDeckId");
   const [user, setUser] = useState(getCurrentUserDetail());
 
   return (
@@ -24,12 +23,14 @@ export const Routers = () => {
             path={`${user?.uniqueUsername}/profile`}
             element={<UserProfile />}
           />
-          <Route path={`review/${currentDeckId}`} element={<ReviewCard />} />
+
+          {/* Dynamically pass the deckId using route parameter */}
+          <Route path="review/:deckId" element={<ReviewCard />} />
+
           <Route path="sets" element={<UserDecks />} />
-          <Route
-            path={`explore/${currentDeckId}`}
-            element={<ExploreReviewDeck />}
-          />
+
+          {/* Dynamically pass the deckId using route parameter */}
+          <Route path="explore/:deckId" element={<ExploreReviewDeck />} />
         </Route>
 
         <Route path="*" element={<Error />} />

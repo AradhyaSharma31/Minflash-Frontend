@@ -162,6 +162,9 @@ export const ReviewCard = () => {
       const data = await response.json();
       const { updateCard, nextCard } = data;
 
+      console.log(updateCard);
+      console.log(nextCard);
+
       setIsFlipped(false);
 
       setTimeout(() => {
