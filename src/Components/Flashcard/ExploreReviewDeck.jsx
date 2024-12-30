@@ -131,9 +131,9 @@ export const ExploreReviewDeck = () => {
     };
   }, [handleNextCard, handlePrevCard]);
 
-  const getCardImage = async (userId, deckId, cardId, image) => {
+  const getCardImage = async (deckId, cardId, image) => {
     return await fetch(
-      `https://minflashcards.onrender.com/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${image}`
+      `https://minflashcards.onrender.com/flashcard/blob/get-url?deckId=${deckId}&cardId=${cardId}&file=${image}`
     );
   };
 
