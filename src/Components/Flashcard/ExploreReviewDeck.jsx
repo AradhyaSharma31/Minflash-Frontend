@@ -42,7 +42,6 @@ export const ExploreReviewDeck = () => {
           fetchedDeck.cards?.[currentCardIndex]?.image !== "null"
         ) {
           const cardImageResponse = await getCardImage(
-            userId,
             deckId,
             fetchedDeck.cards[currentCardIndex].id,
             fetchedDeck.cards[currentCardIndex].image
@@ -53,7 +52,7 @@ export const ExploreReviewDeck = () => {
           }
 
           const cardImageUrl = await cardImageResponse.json();
-          setImageUrl(cardImageUrl.url); // Ensure you're setting only the URL
+          setImageUrl(cardImageUrl.url);
         }
       } catch (error) {
         console.error("Error fetching deck:", error);
