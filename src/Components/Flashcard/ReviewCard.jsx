@@ -56,27 +56,29 @@ export const ReviewCard = () => {
     fetchDeck();
   }, [userId, deckId, token]);
 
-  const getImageUrl = async (token, userId, deckId, cardId, file) => {
-    try {
-      const response = await fetch(
-        `https://minflashcards.onrender.com/flashcard/blob/get-url?userId=${userId}&deckId=${deckId}&cardId=${cardId}&file=${file}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
+  const getImageUrl = async (token, deckId, cardId, file) => {
+    if (file != "null") {
+      try {
+        const response = await fetch(
+          `https://minflashcards.onrender.com/flashcard/blob/get-url?deckId=${deckId}&cardId=${cardId}&file=${file}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error fetching image URL");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Error fetching image URL");
+        const data = await response.json();
+        setImageUrl(data.url);
+      } catch (err) {
+        setError(err.message);
       }
-
-      const data = await response.json();
-      setImageUrl(data.url);
-    } catch (err) {
-      setError(err.message);
     }
   };
 
@@ -85,7 +87,7 @@ export const ReviewCard = () => {
     const validCard = cards.find((card) => new Date(card.nextReview) <= now);
 
     if (validCard) {
-      await getImageUrl(token, userId, deckId, validCard.id, validCard.image);
+      await getImageUrl(token, deckId, validCard.id, validCard.image);
       setCurrentCard(validCard);
       setMessageCard(false);
     } else {
