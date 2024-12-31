@@ -1,0 +1,9 @@
+﻿services:
+  - type: web
+    name: flashcard-app
+    env: node
+    buildCommand: npm run build
+    startCommand: npm run start
+    routes:
+      - src: "/.*"
+        dest: "/index.html"
