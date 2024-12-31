@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 # Minflash-Frontend
 
 frontend deployed link:
-https://minflash-frontend-production.up.railway.app/
+https://minflash.onrender.com/
