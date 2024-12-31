@@ -94,6 +94,27 @@ export const UserDecks = () => {
           {`Look at all the awesome flashcards you’ve made, ${currentUser.uniqueUsername}!`}
         </h1>
       </span>
+
+      {/* add deck */}
+      <div
+        className="w-[95%] h-24 rounded-2xl flex justify-center items-center flex-col space-y-1 py-1s bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
+           cursor-pointer transition-all duration-200 ease-in-out
+          hover:bg-[#233559] hover:shadow-lg"
+      >
+        <button
+          onClick={() => {
+            navigate("/user/edit");
+            updateDeckId(null);
+          }}
+          className="card--shadow cursor-pointer h-12 w-12 transition-all ease-in-out duration-150 rounded-full text-[25px] flex justify-center items-center bg-[#324B73] hover:bg-[#405B8A] focus:border-2"
+        >
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
+        <span>
+          <h1 className="select-none font-medium text-sm">create new set</h1>
+        </span>
+      </div>
+
       {/* decks */}
       {deck.map((item, key) => (
         <div
@@ -190,26 +211,6 @@ export const UserDecks = () => {
           </span>
         </div>
       ))}
-
-      {/* add deck */}
-      <div
-        className="w-[95%] h-24 rounded-2xl flex justify-center items-center flex-col space-y-1 py-1s bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
-          my-2 cursor-pointer transition-all duration-200 ease-in-out
-          hover:bg-[#233559] hover:shadow-lg"
-      >
-        <button
-          onClick={() => {
-            navigate("/user/edit");
-            updateDeckId(null);
-          }}
-          className="card--shadow cursor-pointer h-12 w-12 transition-all ease-in-out duration-150 rounded-full text-[25px] flex justify-center items-center bg-[#324B73] hover:bg-[#405B8A] focus:border-2"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <span>
-          <h1 className="select-none font-medium text-sm">create new set</h1>
-        </span>
-      </div>
     </div>
   );
 };
