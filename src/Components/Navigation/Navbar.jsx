@@ -132,7 +132,13 @@ const Navbar = () => {
             scrollPosition >= 70 ? "py-4 bg-[#02112E]" : "py-6"
           } flex justify-between items-center px-6 md:px-12 lg:px-16 transition-all duration-300 ease-in-out`}
         >
-          <div className="cursor-pointer" onClick={() => navigate("/")}>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              navigate("/");
+              window.location.reload(true);
+            }}
+          >
             <img src="/favicon.ico" alt="icon" />
           </div>
 
