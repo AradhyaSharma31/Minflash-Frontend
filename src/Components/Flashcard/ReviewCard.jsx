@@ -131,7 +131,6 @@ export const ReviewCard = () => {
       } else {
         toast.success("Cards Reset Successful");
       }
-      window.location.reload();
     } catch (error) {
       console.error("Error resetting the deck", error);
     }
@@ -161,9 +160,6 @@ export const ReviewCard = () => {
 
       const data = await response.json();
       const { updateCard, nextCard } = data;
-
-      console.log(updateCard);
-      console.log(nextCard);
 
       setIsFlipped(false);
 
