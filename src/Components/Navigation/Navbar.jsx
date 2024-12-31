@@ -161,6 +161,7 @@ const Navbar = () => {
                     onClick={() => {
                       updateDeckId(d.DeckId);
                       navigate(`/user/explore/${d.DeckId}`);
+                      setSearchInput("");
                     }}
                     className="overflow-hidden flex flex-row items-center gap-5 w-full h-14 bg-[#042443] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#233559] transition duration-200 cursor-pointer"
                   >
