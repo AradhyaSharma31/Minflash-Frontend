@@ -81,7 +81,6 @@ export const UserDecks = () => {
       setPopoverDeckId(null);
 
       setDeck((prevDeck) => prevDeck.filter((item) => item.DeckId !== deckId));
-      window.location.reload();
     } catch (error) {
       console.error("Error deleting the deck: " + error);
     }
