@@ -307,11 +307,10 @@ export const Deck = () => {
                 )
               : null
           );
-
           await Promise.all(cardPromises.filter(Boolean));
           toast.success("Deck updated successfully");
           navigate(`/user/review/${deckId}`);
-          window.location.reload(true);
+          // window.location.reload(true);
         } else {
           const deckResponse = await createDeck(deck.title, deck.description);
 
@@ -331,7 +330,7 @@ export const Deck = () => {
 
           toast.success("Set saved successfully");
           navigate(`/user/review/${newDeckId}`);
-          window.location.reload(true);
+          // window.location.reload(true);
         }
       } catch (error) {
         toast.error("Error saving the set");

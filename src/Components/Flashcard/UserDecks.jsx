@@ -100,7 +100,6 @@ export const UserDecks = () => {
           onClick={() => {
             updateDeckId(item.DeckId);
             navigate(`/user/review/${item.DeckId}`);
-            window.location.reload(true);
           }}
           key={key}
           className="w-[95%] h-24 rounded-2xl bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]

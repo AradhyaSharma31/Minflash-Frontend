@@ -263,7 +263,7 @@ const Navbar = () => {
                         handleCloseMenu();
                         navigate(`user/${currentUser.uniqueUsername}/profile`);
                       }}
-                      className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#2A3E5C] cursor-pointer"
+                      className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faGear} />
                       <h1 className="text-sm font-medium">Settings</h1>
