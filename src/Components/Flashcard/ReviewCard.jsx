@@ -83,7 +83,7 @@ export const ReviewCard = () => {
 
   const filterNextReviewCard = async (cards) => {
     const now = new Date();
-    now.setSeconds(now.getSeconds() + 10);
+    now.setSeconds(now.getSeconds() + 30);
     const validCard = cards.find((card) => new Date(card.nextReview) <= now);
 
     if (validCard) {
