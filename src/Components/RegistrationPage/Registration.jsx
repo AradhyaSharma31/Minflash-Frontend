@@ -119,7 +119,7 @@ export const Registration = ({ isOpen, handleClose }) => {
   const submitForm = (e) => {
     e.preventDefault();
     if (!otpSent) {
-      // Step 1: Register and Send OTP
+      // Register and Send OTP
       signUp(data)
         .then((response) => {
           setOtpSent(true);
@@ -149,7 +149,7 @@ export const Registration = ({ isOpen, handleClose }) => {
           });
         });
     } else {
-      // Step 2: Complete Registration with OTP
+      // Complete Registration with OTP
       completeRegistration(data.email, otp, data)
         .then((resp) => {
           setError({ errs: [], isError: false });

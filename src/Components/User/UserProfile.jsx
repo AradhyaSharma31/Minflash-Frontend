@@ -125,8 +125,6 @@ export const UserProfile = () => {
       } catch (err) {
         console.error("Error fetching profile data:", err);
       }
-
-      window.location.reload();
     } catch (err) {
       console.error("Error updating profile picture:", err);
       toast.error("Failed to update profile picture");
