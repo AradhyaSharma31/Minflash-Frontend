@@ -27,9 +27,13 @@ This is the **frontend** of a flashcard learning application built with **React*
 
 ## Technologies Used
 React: Frontend framework
+
 shadCN: Custom UI components
+
 JWT: Authentication mechanism
+
 CSS / Tailwind CSS: Styling and layout
+
 Axios: For API requests
 
 ## Contributing
