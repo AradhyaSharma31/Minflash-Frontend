@@ -168,7 +168,10 @@ export const UserDecks = () => {
               open={popoverDeckId === item.DeckId}
               onOpenChange={() => setPopoverDeckId(null)}
             >
-              <AlertDialogContent className="bg-[#15171a] border border-gray-700 rounded-lg shadow-lg">
+              <AlertDialogContent
+                onClick={(e) => e.stopPropagation()}
+                className="bg-[#15171a] border border-gray-700 rounded-lg shadow-lg"
+              >
                 <AlertDialogHeader>
                   <AlertDialogTitle className="font-bold text-md">
                     {`Are you sure you want to delete "${item.title}"?`}

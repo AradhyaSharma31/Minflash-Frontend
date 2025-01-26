@@ -15,6 +15,17 @@ import {
   getCurrentUserToken,
   isLoggedIn,
 } from "../../Auth/auth";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../../Components/ui/alert-dialog";
 import axios from "axios";
 import { DeckContext } from "../../../src/Context/DeckProvider";
 
@@ -28,6 +39,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [login, setLogin] = useState(isLoggedIn());
+  const [isLogout, setIsLogout] = useState(false);
   const [currentUser, setCurrentUser] = useState(getCurrentUserDetail());
   const [deck, setDeck] = useState([]);
   const [searchInput, setSearchInput] = useState(""); // Track search input
@@ -132,14 +144,8 @@ const Navbar = () => {
             scrollPosition >= 70 ? "py-4 bg-[#02112E]" : "py-6"
           } flex justify-between items-center px-6 md:px-12 lg:px-16 transition-all duration-300 ease-in-out`}
         >
-          <div
-            className="cursor-pointer"
-            onClick={() => {
-              navigate("/");
-              window.location.reload(true);
-            }}
-          >
-            <img src="/favicon.ico" alt="icon" />
+          <div className="cursor-pointer" onClick={() => navigate("/")}>
+            <img src="../../../public/favicon.ico" alt="icon" />
           </div>
 
           {/* Deck Explore Search */}
@@ -167,7 +173,7 @@ const Navbar = () => {
                     onClick={() => {
                       updateDeckId(d.DeckId);
                       navigate(`/user/explore/${d.DeckId}`);
-                      setSearchInput("");
+                      window.location.reload(true);
                     }}
                     className="overflow-hidden flex flex-row items-center gap-5 w-full h-14 bg-[#042443] text-white px-3 py-2 mb-2 rounded-md hover:bg-[#233559] transition duration-200 cursor-pointer"
                   >
@@ -261,7 +267,11 @@ const Navbar = () => {
                       }}
                       className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
-                      <FontAwesomeIcon icon={faFolderOpen} />
+                      <img
+                        className="h-[17px] w-[20px]"
+                        src="../../../public/card-icon.png"
+                        alt=""
+                      />
                       <h1 className="text-sm font-medium">Your Sets</h1>
                     </li>
                     <li
@@ -269,23 +279,62 @@ const Navbar = () => {
                         handleCloseMenu();
                         navigate(`user/${currentUser.uniqueUsername}/profile`);
                       }}
-                      className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
+                      className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faGear} />
                       <h1 className="text-sm font-medium">Settings</h1>
                     </li>
                     <hr className="border-[#a58f8f]" />
                     <li
-                      onClick={() => {
-                        handleCloseMenu;
-                        logout();
-                      }}
+                      onClick={() => setIsLogout(true)}
                       className="flex flex-row items-center gap-7 px-6 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faArrowRightFromBracket} />
                       <h1 className="text-sm font-medium">Logout</h1>
                     </li>
                   </ul>
+                  {/* Logout Confirmation Dialog */}
+                  <AlertDialog
+                    open={isLogout}
+                    onOpenChange={(isOpen) => setIsLogout(isOpen)}
+                  >
+                    <AlertDialogContent
+                      onClick={(e) => e.stopPropagation()}
+                      className="bg-[#15171a] border border-gray-700 rounded-lg shadow-lg"
+                    >
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="font-bold text-md">
+                          Are You Sure You Want to Log Out?
+                        </AlertDialogTitle>
+                      </AlertDialogHeader>
+                      <AlertDialogDescription className=" text-gray-400">
+                        Logging out will terminate your session. Ensure you've
+                        saved your work or completed your tasks before
+                        proceeding.
+                      </AlertDialogDescription>
+                      <AlertDialogFooter className="mt-4">
+                        <AlertDialogCancel
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsLogout(false);
+                          }}
+                          className="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold px-4 py-2 rounded-lg transition-colors"
+                        >
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCloseMenu;
+                            logout();
+                          }}
+                          className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
+                        >
+                          Logout
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               )}
             </div>
