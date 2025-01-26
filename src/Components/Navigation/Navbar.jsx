@@ -145,7 +145,10 @@ const Navbar = () => {
           } flex justify-between items-center px-6 md:px-12 lg:px-16 transition-all duration-300 ease-in-out`}
         >
           <div className="cursor-pointer" onClick={() => navigate("/")}>
-            <img src="/public/favicon.ico" alt="icon" />
+            <img
+              src="https://media-hosting.imagekit.io//970c0e7ea9c24725/favicon.ico?Expires=1832500254&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pVyr73~6VFAfD5E4PDqt5b2Lct68QQ6fDlalLMwqxpVASnWFtiS6IsiRHS~w28Qvy4w2UjAr0Ij~j3IW3hsAk4Zlmg5ZKw2ks7iaWIAKJEsUomAZIJ3ylgqz~h1-9g-02rJOR8bBR6801dVMbFHEPdrQIoMUGZB-Hyg0cBNzzSWINpZvvdWcSdrigwZOaSJaaTd9~PQpm032Vtegb0Uyhpkm7liag7nivBk2Wg6am6-P1ouH-RdE1U0-ioBsaALGpxkyq5jc1M3kXNWH2hWRzg29XERKR4CRezxgiB0wLv8Z99MvDhsJoH4PGMEIi0PD6JIoJAtjZRKw80ycrUHaZw__"
+              alt="icon"
+            />
           </div>
 
           {/* Deck Explore Search */}
