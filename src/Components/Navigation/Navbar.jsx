@@ -267,11 +267,7 @@ const Navbar = () => {
                       }}
                       className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
-                      <img
-                        className="h-[17px] w-[20px]"
-                        src="../../../public/card-icon.png"
-                        alt=""
-                      />
+                      <FontAwesomeIcon icon={faFolderOpen} />
                       <h1 className="text-sm font-medium">Your Sets</h1>
                     </li>
                     <li
