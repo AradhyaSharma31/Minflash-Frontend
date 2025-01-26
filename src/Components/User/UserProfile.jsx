@@ -186,7 +186,7 @@ export const UserProfile = () => {
           </h1>
           <div className="border border-gray-400 rounded-xl h-72">
             <div className="h-[40%] border-b border-gray-400 flex flex-row items-center gap-10 px-5">
-              <span className="relative h-[5rem] w-[5rem] rounded-full flex justify-center items-center bg-yellow-500">
+              <span className="relative max-sm:h-[4rem] max-sm:w-[4rem] h-[5rem] w-[5rem] rounded-full flex justify-center items-center bg-yellow-500">
                 {imageURL ? (
                   <img
                     src={imageURL}
@@ -200,7 +200,7 @@ export const UserProfile = () => {
                 )}
                 <FontAwesomeIcon
                   onClick={handleProfileSelector}
-                  className="border-2 border-[#15171a] absolute right-0 bottom-0 p-1 rounded-full bg-blue-500 cursor-pointer"
+                  className="border-2 border-[#15171a] absolute max-sm:-bottom-1 max-sm:-right-1 right-0 bottom-0 p-1 rounded-full bg-blue-500 cursor-pointer"
                   icon={faPlus}
                 />
                 <input
@@ -211,7 +211,7 @@ export const UserProfile = () => {
                   onChange={handleImageChange}
                 />
               </span>
-              <h1 className="font-medium text-[#ffffff] text-xl">
+              <h1 className="font-medium text-[#ffffff] max-sm:text-lg text-xl">
                 Profile Picture
               </h1>
             </div>
@@ -273,7 +273,6 @@ export const UserProfile = () => {
               <h1 className="font-medium text-sm">Delete your account</h1>
 
               {/* Trigger Button */}
-              {/* Trigger Button */}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button className="font-medium text-xs border border-gray-400 focus:border-2 py-2 px-4 rounded-lg bg-red-900">
@@ -293,8 +292,8 @@ export const UserProfile = () => {
                       type="password"
                       placeholder="••••••••"
                       name="password-confirm"
-                      value={password} // Controlled input for password
-                      onChange={(e) => setPassword(e.target.value)} // Update password state
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </AlertDialogDescription>
                   <AlertDialogFooter className="mt-6">
@@ -302,9 +301,9 @@ export const UserProfile = () => {
                       Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
-                      className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
-                      onClick={handleDeleteAccount} // Call the delete function on click
-                      disabled={isLoading} // Disable the button while loading
+                      className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
+                      onClick={handleDeleteAccount}
+                      disabled={isLoading}
                     >
                       {isLoading ? "Deleting..." : "Continue"}
                     </AlertDialogAction>

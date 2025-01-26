@@ -195,7 +195,7 @@ export const UserDecks = () => {
                       handleDelete(item.DeckId, e);
                       e.stopPropagation();
                     }}
-                    className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
+                    className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
                   >
                     Continue
                   </AlertDialogAction>

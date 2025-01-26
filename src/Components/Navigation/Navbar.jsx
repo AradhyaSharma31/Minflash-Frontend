@@ -149,7 +149,7 @@ const Navbar = () => {
           </div>
 
           {/* Deck Explore Search */}
-          <div className="w-[50%] flex flex-col relative mx-auto">
+          <div className="max-sm:hidden w-[50%] flex flex-col relative mx-auto">
             <div className="border border-blue-900 bg-[#02112E] rounded-xl overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
@@ -324,7 +324,7 @@ const Navbar = () => {
                             handleCloseMenu;
                             logout();
                           }}
-                          className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg ml-2 transition-colors"
+                          className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
                         >
                           Logout
                         </AlertDialogAction>

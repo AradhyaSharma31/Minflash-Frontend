@@ -78,6 +78,14 @@
   background-color: #1f2a5b;
 }
 
+@media (max-width: 480px) {
+  .postpone--btn {
+    width: 35px;
+    border-radius: 50px;
+    font-size: 7px;
+  }
+}
+
 .postpone--btn:hover {
   background-color: #182146;
 }
