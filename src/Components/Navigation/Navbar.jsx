@@ -145,7 +145,7 @@ const Navbar = () => {
           } flex justify-between items-center px-6 md:px-12 lg:px-16 transition-all duration-300 ease-in-out`}
         >
           <div className="cursor-pointer" onClick={() => navigate("/")}>
-            <img src="../../../public/favicon.ico" alt="icon" />
+            <img src="/public/favicon.ico" alt="icon" />
           </div>
 
           {/* Deck Explore Search */}
