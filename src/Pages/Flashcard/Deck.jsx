@@ -452,7 +452,7 @@ export const Deck = () => {
       <div className="w-full flex flex-col mt-10">
         <span className="w-full flex border border-[#003366]"></span>
 
-        <div className="flex justify-end mt-8">
+        <div className="flex max-sm:justify-center justify-end mt-8">
           <span className="border border-blue-900 w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
             <input
               type="text"
