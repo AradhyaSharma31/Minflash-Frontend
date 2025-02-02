@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ReviewCard } from "../../Pages/Flashcard/ReviewCard";
 import { Deck } from "../../Pages/Flashcard/Deck";
 import { UserDecks } from "../../Pages/Flashcard/UserDecks";
-import { Main } from "../Main/Main";
+import { Main } from "../../Pages/Main/Main";
 import { PrivateRouters } from "./PrivateRouters";
 import { Error } from "../Error/Error";
 import { UserProfile } from "../../Pages/User/UserProfile";
