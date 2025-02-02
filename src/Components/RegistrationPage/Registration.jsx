@@ -165,6 +165,10 @@ export const Registration = ({ handleClose }) => {
           setError({ errs: [], isError: false });
           handleClose();
           toast.success("Registration successful!");
+
+          setTimeout(() => {
+            handleLoginSubmit(e);
+          }, 1000);
         })
         .catch((err) => {
           setError("Invalid OTP. Please try again.");

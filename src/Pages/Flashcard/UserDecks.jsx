@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import "../../Styles/userDecks.css";
@@ -31,10 +31,35 @@ export const UserDecks = () => {
     localStorage.getItem("profileImage")
   ); // State for file URL saved in azure
   const [route, setRoute] = useState({ sets: true, folder: false });
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredDecks = deck.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // method to set routes
-  const handleSelect = (selected) => {
+  const handleRoute = (selected) => {
     setRoute({ sets: selected === "sets", folder: selected === "folder" });
+  };
+
+  const handleSelect = (selectedRoute) => {
+    if (selectedRoute === "sets") {
+      if (route.sets) {
+        // Reload the current page when already on the /user/sets route
+        window.location.reload();
+      } else {
+        navigate("/user/sets");
+        handleRoute("sets");
+      }
+    } else if (selectedRoute === "folder") {
+      if (route.folder) {
+        // Reload the current page when already on the /user/folder route
+        window.location.reload();
+      } else {
+        navigate("/user/folder");
+        handleRoute("folder");
+      }
+    }
   };
 
   const togglePopover = (deckId) => {
@@ -102,18 +127,15 @@ export const UserDecks = () => {
       </span>
 
       {/* Selection */}
-      <div className="w-full flex flex-col px-5">
-        <span className="flex space-x-3 px-3 pb-1 text-md font-medium">
+      <div className="w-full flex flex-col px-5 lg:px-8">
+        <span className="flex space-x-6 px-3 pb-1 text-md font-medium">
           <button
             className={` ${
               route.sets
                 ? "text-white selected"
                 : "flashcard-button text-gray-400"
             }`}
-            onClick={() => {
-              handleSelect("sets");
-              navigate("user/sets");
-            }}
+            onClick={() => handleSelect("sets")}
           >
             Flashcard Sets
           </button>
@@ -123,15 +145,35 @@ export const UserDecks = () => {
                 ? "text-white selected"
                 : "flashcard-button text-gray-400"
             }`}
-            onClick={() => {
-              handleSelect("folder");
-              navigate("user/folder");
-            }}
+            onClick={() => handleSelect("folder")}
           >
             Folders
           </button>
         </span>
         <span className="border border-[#003366] my-2"></span>
+
+        {/* Filter Search */}
+        <div className="flex justify-end my-3">
+          <span className="border border-blue-900 w-64 px-4 flex items-center bg-[#2a315a] rounded-lg">
+            <input
+              type="text"
+              placeholder="Search Sets"
+              className="py-2 w-full bg-transparent overflow-hidden outline-none border-none select-none"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <span className="flex space-x-5">
+              {searchTerm && (
+                <FontAwesomeIcon
+                  onClick={() => setSearchTerm("")}
+                  icon={faTimes}
+                  className="text-gray-400 cursor-pointer"
+                />
+              )}
+              <FontAwesomeIcon icon={faSearch} className="cursor-pointer" />
+            </span>
+          </span>
+        </div>
       </div>
 
       {/* add deck */}
@@ -155,7 +197,7 @@ export const UserDecks = () => {
       </div>
 
       {/* decks */}
-      {deck.map((item, key) => (
+      {filteredDecks.map((item, key) => (
         <div
           onClick={() => {
             updateDeckId(item.DeckId);
@@ -253,6 +295,17 @@ export const UserDecks = () => {
           </span>
         </div>
       ))}
+
+      {/* not found image */}
+      {filteredDecks == 0 && (
+        <div className="w-52 h-64 flex items-end overflow-hidden">
+          <img
+            src="../../../public/9214777.jpg"
+            alt="sets not found"
+            className="rounded-3xl"
+          />
+        </div>
+      )}
     </div>
   );
 };

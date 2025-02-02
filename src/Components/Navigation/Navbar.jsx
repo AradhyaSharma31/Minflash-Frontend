@@ -6,7 +6,8 @@ import {
   faFolderOpen,
   faArrowRightFromBracket,
   faGear,
-  faMagnifyingGlass,
+  faSearch,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { Registration } from "../RegistrationPage/Registration";
 import {
@@ -80,10 +81,10 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
- 
+
   // Toggling isModelOpen when Signup/Login is pressed or when registration is successfully completed
   const closeModal = () => {
-    setIsModalOpen(prev => !prev);
+    setIsModalOpen((prev) => !prev);
   };
 
   const handleProfileClicks = () => {
@@ -153,10 +154,7 @@ const Navbar = () => {
           {/* Deck Explore Search */}
           <div className="max-sm:hidden w-[50%] flex flex-col relative mx-auto">
             <div className="border border-blue-900 bg-[#02112E] rounded-xl overflow-hidden w-full h-[2.4rem] flex flex-row items-center pl-3">
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className="cursor-pointer"
-              />
+              <FontAwesomeIcon icon={faSearch} className="cursor-pointer" />
               <input
                 type="text"
                 value={searchInput}
@@ -164,6 +162,13 @@ const Navbar = () => {
                 placeholder="Search Flashcards"
                 className="w-full h-full text-sm py-1 ml-3 bg-[#02112E] outline-none"
               />
+              {searchInput && (
+                <FontAwesomeIcon
+                  onClick={() => setSearchInput("")}
+                  icon={faTimes}
+                  className="pr-4 text-gray-400 cursor-pointer"
+                />
+              )}
             </div>
 
             {/* Search Dropdown */}

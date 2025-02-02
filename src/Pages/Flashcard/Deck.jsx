@@ -9,6 +9,8 @@ import { DeckContext } from "../../Context/DeckProvider";
 import { Loader2 } from "lucide-react";
 import { Button } from "../../Components/ui/button";
 import axios from "axios";
+import { faCross, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const generateUniqueId = () => "_" + Math.random().toString(36).substr(2, 9);
 
@@ -18,6 +20,7 @@ export const Deck = () => {
   const [user, setUser] = useState(getCurrentUserDetail());
   const token = getCurrentUserToken();
   const [imageName, setImageName] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [deckId, setDeckId] = useState(
     sessionStorage.getItem("currentDeckId") || null
   );
@@ -402,6 +405,11 @@ export const Deck = () => {
     }
   };
 
+  // Filter cards based on search term
+  const filteredCards = deck.cards.filter((card) =>
+    card.term.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="mt-32 h-full">
       <div className="flex h-12">
@@ -409,6 +417,8 @@ export const Deck = () => {
           {deckId !== "null" ? `Edit Set` : `Create Set`}
         </h1>
       </div>
+
+      {/* Set Config */}
       <div className="rounded-lg bg-gradient-to-br from-[#1B2B5A] to-[#152243] text-[#fff] min-h-52 h-auto flex flex-col pb-3">
         <div className="border-b border-[#000725] h-9 flex items-center px-6">
           <span className="font-normal text-sm">Set</span>
@@ -437,8 +447,37 @@ export const Deck = () => {
           </div>
         </div>
       </div>
+
+      {/* Filter Search */}
+      <div className="w-full flex flex-col mt-10">
+        <span className="w-full flex border border-[#003366]"></span>
+
+        <div className="flex justify-end mt-8">
+          <span className="border border-blue-900 w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
+            <input
+              type="text"
+              placeholder="Search Terms"
+              className="py-2 w-full bg-transparent overflow-hidden outline-none border-none select-none"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <span className="flex space-x-5">
+              {searchTerm && (
+                <FontAwesomeIcon
+                  onClick={() => setSearchTerm("")}
+                  icon={faTimes}
+                  className="text-gray-400 cursor-pointer"
+                />
+              )}
+              <FontAwesomeIcon icon={faSearch} className="cursor-pointer" />
+            </span>
+          </span>
+        </div>
+      </div>
+
+      {/* Card Config */}
       <div>
-        {deck.cards.map((card, index) => (
+        {filteredCards.map((card, index) => (
           <Card
             key={card.id}
             card={card}
@@ -449,8 +488,20 @@ export const Deck = () => {
             handleImageUpload={handleImageUpload}
           />
         ))}
+
+        {/* not found image */}
+        {filteredCards == 0 && (
+          <div className="w-full h-52 flex justify-center my-16 overflow-hidden">
+            <img
+              src="../../../public/9886321.jpg"
+              alt="sets not found"
+              className="rounded-3xl"
+            />
+          </div>
+        )}
+
+        {/* Save Button */}
         <div className="flex justify-center">
-          {/* Save Button */}
           <Button
             onClick={handleSave}
             disabled={loading}

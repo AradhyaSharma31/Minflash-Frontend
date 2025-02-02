@@ -272,7 +272,7 @@ export const ReviewCard = () => {
                   <img className="card--image" src={imageUrl} alt={imageUrl} />
                 )}
               </div>
-              <div className="postpone--btns">
+              <div className="postpone--btns max-sm:gap-6">
                 <button
                   className="postpone--btn"
                   onClick={(e) => {
