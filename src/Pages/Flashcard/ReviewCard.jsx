@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../Styles/ReviewCard.css";
+import "../../Styles/reviewCard.css";
 import "../../Styles/GlobalButton.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { useNavigate } from "react-router-dom";
