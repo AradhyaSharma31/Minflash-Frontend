@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
+import "../../Styles/userDecks.css";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { DeckContext } from "../../Context/DeckProvider";
@@ -29,6 +30,12 @@ export const UserDecks = () => {
   const [imageURL, setImageURL] = useState(
     localStorage.getItem("profileImage")
   ); // State for file URL saved in azure
+  const [route, setRoute] = useState({ sets: true, folder: false });
+
+  // method to set routes
+  const handleSelect = (selected) => {
+    setRoute({ sets: selected === "sets", folder: selected === "folder" });
+  };
 
   const togglePopover = (deckId) => {
     setPopoverDeckId(deckId);
@@ -94,12 +101,33 @@ export const UserDecks = () => {
         </h1>
       </span>
 
+      {/* Selection */}
       <div className="w-full flex flex-col px-5">
         <span className="flex space-x-3 px-3 pb-1 text-md font-medium">
-          <button className="text-gray-400 hover:text-[#6374c9] hover:relative hover::after:content-[''] hover::after:absolute hover::after:bottom-[-5px] hover::after:left-0 hover::after:right-0 hover::after:border-b-2 hover::after:border-b-[#6374c9]">
+          <button
+            className={` ${
+              route.sets
+                ? "text-white selected"
+                : "flashcard-button text-gray-400"
+            }`}
+            onClick={() => {
+              handleSelect("sets");
+              navigate("user/sets");
+            }}
+          >
             Flashcard Sets
           </button>
-          <button className="text-gray-400 hover:text-[#6374c9] hover:relative hover::after:content-[''] hover::after:absolute hover::after:bottom-[-5px] hover::after:left-0 hover::after:right-0 hover::after:border-b-2 hover::after:border-b-[#6374c9]">
+          <button
+            className={` ${
+              route.folder
+                ? "text-white selected"
+                : "flashcard-button text-gray-400"
+            }`}
+            onClick={() => {
+              handleSelect("folder");
+              navigate("user/folder");
+            }}
+          >
             Folders
           </button>
         </span>

@@ -9,6 +9,7 @@ import { Error } from "../Error/Error";
 import { UserProfile } from "../../Pages/User/UserProfile";
 import { getCurrentUserDetail } from "../../Auth/auth";
 import { ExploreReviewDeck } from "../../Pages/Flashcard/ExploreReviewDeck";
+import { SetFolder } from "../../Pages/Flashcard/SetFolder";
 
 export const Routers = () => {
   const [user, setUser] = useState(getCurrentUserDetail());
@@ -17,8 +18,10 @@ export const Routers = () => {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/user" element={<PrivateRouters />}>
+
+        <Route path="user" element={<PrivateRouters />}>
           <Route path="edit" element={<Deck />} />
+
           <Route
             path={`${user?.uniqueUsername}/profile`}
             element={<UserProfile />}
@@ -29,6 +32,8 @@ export const Routers = () => {
           <Route path="sets" element={<UserDecks />} />
 
           <Route path="explore/:deckId" element={<ExploreReviewDeck />} />
+
+          <Route path="folder" element={<SetFolder />} />
         </Route>
 
         <Route path="*" element={<Error />} />

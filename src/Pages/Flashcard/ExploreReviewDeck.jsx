@@ -4,7 +4,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../Styles/ReviewCard.css";
+import "../../Styles/reviewCard.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { toast } from "react-hot-toast";
 

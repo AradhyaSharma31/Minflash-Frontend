@@ -1,0 +1,18 @@
+.flashcard-button {
+  color: #b0b0b0; /* Gray color */
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.flashcard-button:hover {
+  color: #6374c9; /* Hover color */
+  position: relative;
+}
+
+.flashcard-button:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  border-bottom: 2px solid #6374c9; /* Hover underline */
+}
