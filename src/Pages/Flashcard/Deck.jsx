@@ -493,7 +493,7 @@ export const Deck = () => {
         {filteredCards == 0 && (
           <div className="w-full h-52 flex justify-center my-16 overflow-hidden">
             <img
-              src="../../../public/9886321.jpg"
+              src="https://media-hosting.imagekit.io//d5db13eefb654ce8/9886321.jpg?Expires=1833129527&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=HytomzH~05WIX1QSXhQyoQjABLcbEkuj4~cxG9XBWxeuYbX4GFOqt9aOWB46dBYRNvnHYv3NpKTWwB9QJ8KyS2vylKqdqGnBUOCq~MZApoayQzKTlOfXrbRnFQlknLWg7vIe1yfSIXo5~O0gaoleFqtUie6n6tIXQyGi6xWR1kkdrbJThym211SjT0sT-48QFcDqPTJKe4cqrJFySX-LrpYykgD98GO9RQOIkDcoGXETPaZkmJ7TjcBT6cRZDZbU0a7P6tiou5u3miQC1Q5KpA37UjAPOd5LtJDSqRuCVkRJ4b8NHlkxG3yVIOPzjludoygFOHmeTKaYkKslSTyASw__"
               alt="sets not found"
               className="rounded-3xl"
             />

@@ -300,7 +300,7 @@ export const UserDecks = () => {
       {filteredDecks == 0 && (
         <div className="w-52 h-64 flex items-end overflow-hidden">
           <img
-            src="../../../public/9214777.jpg"
+            src="https://media-hosting.imagekit.io//81587770a0bb4e5e/9214777.jpg?Expires=1833129521&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=VqHmacU1hjejwbcMIyZb61astpRzcWQiFmHYUbXMsVN4~xTXZTCOasZVaKymLy3MRH7IwoLuDicOSz-L35T-Jx9fajtiTmQ1tbuxvrvl1jwibxedq5~9RB0l6NlM1iwDNylKXNTSqG8u4FV4VPkkAWRUhmEMkQ2Wu3pEyO5dY57nzH2KFRNl0ejPkW6nj8Iu0Sr4qSGZ6df-RzLFQt4f9YRG5dNYbRFq22~-MmObv4bULLsZKCyDxwyLWH9QFLpHB-j0NR3S74FxHlCn~TFOI8mJ~lxpKPb9PzCWWOY5qOw2Zs9LWVcgj9fNryzbdG5cxdF9C6ea54Wx7jEsW84bUw__"
             alt="sets not found"
             className="rounded-3xl"
           />
