@@ -94,6 +94,18 @@ export const UserDecks = () => {
         </h1>
       </span>
 
+      <div className="w-full flex flex-col px-5">
+        <span className="flex space-x-3 px-3 pb-1 text-md font-medium">
+          <button className="text-gray-400 hover:text-[#6374c9] hover:relative hover::after:content-[''] hover::after:absolute hover::after:bottom-[-5px] hover::after:left-0 hover::after:right-0 hover::after:border-b-2 hover::after:border-b-[#6374c9]">
+            Flashcard Sets
+          </button>
+          <button className="text-gray-400 hover:text-[#6374c9] hover:relative hover::after:content-[''] hover::after:absolute hover::after:bottom-[-5px] hover::after:left-0 hover::after:right-0 hover::after:border-b-2 hover::after:border-b-[#6374c9]">
+            Folders
+          </button>
+        </span>
+        <span className="border border-[#003366] my-2"></span>
+      </div>
+
       {/* add deck */}
       <div
         className="w-[95%] h-24 rounded-2xl flex justify-center items-center flex-col space-y-1 py-1s bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]

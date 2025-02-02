@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { ReviewCard } from "../Flashcard/ReviewCard";
-import { Deck } from "../Flashcard/Deck";
-import { UserDecks } from "../Flashcard/UserDecks";
+import { ReviewCard } from "../../Pages/Flashcard/ReviewCard";
+import { Deck } from "../../Pages/Flashcard/Deck";
+import { UserDecks } from "../../Pages/Flashcard/UserDecks";
 import { Main } from "../Main/Main";
 import { PrivateRouters } from "./PrivateRouters";
-import { Error } from "../../Error/Error";
-import { UserProfile } from "../User/UserProfile";
+import { Error } from "../Error/Error";
+import { UserProfile } from "../../Pages/User/UserProfile";
 import { getCurrentUserDetail } from "../../Auth/auth";
-import { ExploreReviewDeck } from "../Flashcard/ExploreReviewDeck";
+import { ExploreReviewDeck } from "../../Pages/Flashcard/ExploreReviewDeck";
 
 export const Routers = () => {
   const [user, setUser] = useState(getCurrentUserDetail());

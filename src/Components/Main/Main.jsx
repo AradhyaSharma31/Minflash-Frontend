@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import anime from "animejs";
-import "../Main/MainContent.css";
+import "../../Styles/MainContent.css";
 import { DeckContext } from "../../Context/DeckProvider";
 
 export const Main = () => {

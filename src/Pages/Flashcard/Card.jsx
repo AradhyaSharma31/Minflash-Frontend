@@ -6,7 +6,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import "./card.css";
+import "../../Styles/card.css";
 import toast from "react-hot-toast";
 
 export const Card = ({

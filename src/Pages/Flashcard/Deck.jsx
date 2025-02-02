@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "./Card";
-import "./card.css";
+import "../../Styles/deck.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { axiosInstance } from "../../Services/UserService";
 import { toast } from "react-hot-toast";

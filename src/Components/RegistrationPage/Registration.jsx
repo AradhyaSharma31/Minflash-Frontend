@@ -10,7 +10,7 @@ import {
 } from "../../Services/UserService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import "./Register.css";
+import "../../Styles/Register.css";
 import { doLogin } from "../../Auth/auth";
 
 export const Registration = ({ isOpen, handleClose }) => {
