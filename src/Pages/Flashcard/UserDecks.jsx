@@ -154,7 +154,7 @@ export const UserDecks = () => {
 
         {/* Filter Search */}
         <div className="flex justify-end max-sm:justify-center my-3">
-          <span className="border border-blue-900 w-64 max-sm:w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
+          <span className="border border-blue-900 w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
             <input
               type="text"
               placeholder="Search Sets"
