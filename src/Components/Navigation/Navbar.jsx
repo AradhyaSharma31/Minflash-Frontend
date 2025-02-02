@@ -163,11 +163,15 @@ const Navbar = () => {
                 className="w-full h-full text-sm py-1 ml-3 bg-[#02112E] outline-none"
               />
               {searchInput && (
-                <FontAwesomeIcon
+                <span
+                  className="flex px-1 cursor-pointer mr-3"
                   onClick={() => setSearchInput("")}
-                  icon={faTimes}
-                  className="pr-4 text-gray-400 cursor-pointer"
-                />
+                >
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className="text-gray-400 cursor-pointer"
+                  />
+                </span>
               )}
             </div>
 

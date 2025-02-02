@@ -164,11 +164,12 @@ export const UserDecks = () => {
             />
             <span className="flex space-x-5">
               {searchTerm && (
-                <FontAwesomeIcon
+                <span
+                  className="flex px-1 cursor-pointer"
                   onClick={() => setSearchTerm("")}
-                  icon={faTimes}
-                  className="text-gray-400 cursor-pointer"
-                />
+                >
+                  <FontAwesomeIcon icon={faTimes} className="text-gray-400" />
+                </span>
               )}
               <FontAwesomeIcon icon={faSearch} className="cursor-pointer" />
             </span>
