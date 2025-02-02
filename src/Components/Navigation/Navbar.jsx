@@ -37,6 +37,8 @@ const Navbar = () => {
   const [clickProfile, setClickProfile] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+
+  // isModalOpen state is used to check for the Registration component popover
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [login, setLogin] = useState(isLoggedIn());
   const [isLogout, setIsLogout] = useState(false);
@@ -78,13 +80,10 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
+ 
+  // Toggling isModelOpen when Signup/Login is pressed or when registration is successfully completed
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(prev => !prev);
   };
 
   const handleProfileClicks = () => {
@@ -340,14 +339,14 @@ const Navbar = () => {
           ) : (
             <div className="flex space-x-4">
               <button
-                onClick={openModal}
+                onClick={closeModal}
                 className="font-medium text-sm hover:scale-110 transition-all duration-100 ease-in-out"
               >
                 Sign Up
               </button>
 
               <button
-                onClick={openModal}
+                onClick={closeModal}
                 className="border border-white bg-white text-black font-medium text-sm py-2 px-4 rounded-full hover:bg-transparent hover:text-white transition duration-200"
               >
                 Log in
@@ -357,8 +356,8 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Registration Popover */}
-      <Registration isOpen={isModalOpen} handleClose={closeModal} />
+      {/* Registration Popover only when isModalOpen is true */}
+      {isModalOpen && <Registration handleClose={closeModal} />}
     </>
   );
 };
