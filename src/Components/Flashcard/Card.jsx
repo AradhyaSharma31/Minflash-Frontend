@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import "./card.css";
+import toast from "react-hot-toast";
 
 export const Card = ({
   card,
@@ -24,14 +25,16 @@ export const Card = ({
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    const fileName = file.name;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      handleImageUpload(fileName, file, card.id, reader.result);
-    };
-    if (file) {
+    if (file && file.type.startsWith("image/")) {
+      const fileName = file.name;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleImageUpload(fileName, file, card.id, reader.result);
+      };
       reader.readAsDataURL(file);
+    } else {
+      toast.error("Only image files are allowed!");
     }
   };
 
