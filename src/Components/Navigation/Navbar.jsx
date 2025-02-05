@@ -38,7 +38,6 @@ const Navbar = () => {
   const [clickProfile, setClickProfile] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-
   // isModalOpen state is used to check for the Registration component popover
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [login, setLogin] = useState(isLoggedIn());
@@ -279,7 +278,7 @@ const Navbar = () => {
                       className="flex flex-row items-center gap-7 px-5 py-2 hover:bg-[#2A3E5C] cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faFolderOpen} />
-                      <h1 className="text-sm font-medium">Your Sets</h1>
+                      <h1 className="text-sm font-medium">Library</h1>
                     </li>
                     <li
                       onClick={() => {

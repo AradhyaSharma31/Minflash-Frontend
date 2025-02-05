@@ -5,17 +5,19 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../Styles/reviewCard.css";
+import "../../Styles/GlobalButton.css";
 import { getCurrentUserDetail, getCurrentUserToken } from "../../Auth/auth";
 import { toast } from "react-hot-toast";
 
 export const ExploreReviewDeck = () => {
-  const [deck, setDeck] = useState("");
+  const [deck, setDeck] = useState(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const userId = getCurrentUserDetail().id;
   const deckId = sessionStorage.getItem("currentDeckId");
   const [imageUrl, setImageUrl] = useState(null);
   const token = getCurrentUserToken();
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     const fetchDeck = async () => {
@@ -86,7 +88,7 @@ export const ExploreReviewDeck = () => {
     setIsFlipped(false);
     if (currentCardIndex === deck.cards.length - 1) {
       toast.success("Set Completed");
-      setCurrentCardIndex(0);
+      setCompleted(true);
     } else {
       setCurrentCardIndex((prevIndex) => prevIndex + 1);
     }
@@ -139,7 +141,7 @@ export const ExploreReviewDeck = () => {
 
   return (
     <div className="h-full mt-36 flex flex-col items-center space-y-3">
-      {deck && (
+      {!completed && deck && (
         <div className="w-[90%] lg:w-[50%] md:w-[75%] sm:w-[90%] flex flex-row items-end justify-between px-1">
           <h1 className="text-[2rem] font-semibold">
             {deck.title.charAt(0).toUpperCase() +
@@ -153,7 +155,7 @@ export const ExploreReviewDeck = () => {
         className="card-wrapper flex justify-center items-center w-[100%]"
         onClick={handleCardClick}
       >
-        {deck && deck.cards.length > 0 && (
+        {!completed && deck && deck.cards.length > 0 && (
           <div
             className={`card ${
               isFlipped ? "flipped" : ""
@@ -175,20 +177,39 @@ export const ExploreReviewDeck = () => {
           </div>
         )}
       </div>
-      <div className="w-full flex justify-center gap-3">
-        <button
-          className="postpone--btn h-12 w-24 rounded-3xl text-lg"
-          onClick={handlePrevCard}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-        <button
-          className="postpone--btn h-12 w-24 rounded-3xl text-lg"
-          onClick={handleNextCard}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
-      </div>
+      {!completed && (
+        <div className="w-full flex justify-center gap-3">
+          <button
+            className="postpone--btn h-12 w-24 rounded-3xl text-lg"
+            onClick={handlePrevCard}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <button
+            className="postpone--btn h-12 w-24 rounded-3xl text-lg"
+            onClick={handleNextCard}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+      )}
+
+      {/* Completed Image */}
+      {completed && (
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src="https://media-hosting.imagekit.io//53bef0ee832645a7/completed.png?Expires=1833167936&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=d0LqAnb0Qt72JdrMDYcOs2-Wo9RrEypBn5wFFlp82k4SoNovfN6oCDkFl1pOghB0okHzvGRZPmLhHzhb0d3N3KbnPj9EYHO68hYpDsZC3uRmA8ULy2R0tWHEOOZpb9Flxr-0A0FLvsd0X-JlQkYDiLFOgl5acnn8kpPMDqEQ9Mtb6FSRNKYstjckm0g6vWi7fD7~XRlavvazlxvsOtNobfC2MR2pQTCNifCUz6-VidDc7AR432ng~A6AACQ3MlHQUaz2Z2e7vHe~BqzXg1G8nZs7NAiDfw0A7K8pybwZpjLG3Qe6zULGGAmtDVoL7hniOM0BDE8--MRr4jHCedayQQ__"
+            alt="Set Completed image"
+            className="w-72 h-72 rounded-3xl"
+          />
+          <button
+            onClick={() => window.location.reload(true)}
+            className="default-btn"
+          >
+            Review Again
+          </button>
+        </div>
+      )}
     </div>
   );
 };

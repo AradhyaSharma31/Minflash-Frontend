@@ -497,7 +497,7 @@ export const Deck = () => {
         {filteredCards == 0 && (
           <div className="w-full h-52 flex justify-center my-16 overflow-hidden">
             <img
-              src="https://media-hosting.imagekit.io//d5db13eefb654ce8/9886321.jpg?Expires=1833129527&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=HytomzH~05WIX1QSXhQyoQjABLcbEkuj4~cxG9XBWxeuYbX4GFOqt9aOWB46dBYRNvnHYv3NpKTWwB9QJ8KyS2vylKqdqGnBUOCq~MZApoayQzKTlOfXrbRnFQlknLWg7vIe1yfSIXo5~O0gaoleFqtUie6n6tIXQyGi6xWR1kkdrbJThym211SjT0sT-48QFcDqPTJKe4cqrJFySX-LrpYykgD98GO9RQOIkDcoGXETPaZkmJ7TjcBT6cRZDZbU0a7P6tiou5u3miQC1Q5KpA37UjAPOd5LtJDSqRuCVkRJ4b8NHlkxG3yVIOPzjludoygFOHmeTKaYkKslSTyASw__"
+              src="https://media-hosting.imagekit.io//a75f06debd164e61/not-found1.png?Expires=1833167936&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=H7tpDYQVPldze0Upbgn49Y7Bg72qZREOHNC5uoRlVF2ZuXt~vJ5cI07551lRgArP5vJvM1-Aneg81vo5WBlc-f1UdZ6E84aa9s0ru-OxjWqUDklzRw99cgSmDG4Sma9x8fB7MbJ1uT-D28v~AlMbELGuWUeM6Az27eT1WKWcnkOIAEF9aOUfItJon-bpSsZAUqM-09P6UebvyQTFs7dTyj8l1PK2mIsBiTpEKomsEeKnMoehuct5O8e4LLjUQDReZl734MuWxM1bZJi3aSPlSpoaL5eI8~7~96UVjF5ArLHMjw-0GNLL1ugj3LPO1K3XXQejdvN-OFpPfsvdtbkfLQ__"
               alt="sets not found"
               className="rounded-3xl"
             />

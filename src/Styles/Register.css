@@ -55,7 +55,7 @@ input[type="number"] {
 }
 
 .inputBox input:focus {
-  background-color: #242222;
+  background-color: #232735;
 }
 
 .inputBox input:focus ~ span,
@@ -123,8 +123,13 @@ input[type="number"] {
   z-index: 9999;
 }
 
+.model-card-selection {
+  height: 35rem;
+  overflow: auto;
+}
+
 .modal-content {
-  background-color: #1f1d1d;
+  background-color: #1c1f2a;
   padding: 2rem;
   border-radius: 10px;
   width: 70%;

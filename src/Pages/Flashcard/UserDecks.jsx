@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from "react";
+import { React, useState, useEffect, useContext, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -16,7 +16,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "../../Components/ui/alert-dialog";
 const API_BASE_URL = "https://minflashcards.onrender.com/flashcard/user";
 
@@ -33,38 +32,13 @@ export const UserDecks = () => {
   const [route, setRoute] = useState({ sets: true, folder: false });
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredDecks = deck.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredDecks = useMemo(
+    () =>
+      deck.filter((item) =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [deck, searchTerm]
   );
-
-  // method to set routes
-  const handleRoute = (selected) => {
-    setRoute({ sets: selected === "sets", folder: selected === "folder" });
-  };
-
-  const handleSelect = (selectedRoute) => {
-    if (selectedRoute === "sets") {
-      if (route.sets) {
-        // Reload the current page when already on the /user/sets route
-        window.location.reload();
-      } else {
-        navigate("/user/sets");
-        handleRoute("sets");
-      }
-    } else if (selectedRoute === "folder") {
-      if (route.folder) {
-        // Reload the current page when already on the /user/folder route
-        window.location.reload();
-      } else {
-        navigate("/user/folder");
-        handleRoute("folder");
-      }
-    }
-  };
-
-  const togglePopover = (deckId) => {
-    setPopoverDeckId(deckId);
-  };
 
   useEffect(() => {
     const fetchUserDecks = async () => {
@@ -95,12 +69,31 @@ export const UserDecks = () => {
     fetchUserDecks();
   }, [currentUser.id, token]);
 
+  // method to set routes
+  const handleRoute = (selected) => {
+    setRoute({ sets: selected === "sets", folder: selected === "folder" });
+  };
+
+  const handleSelect = (selectedRoute) => {
+    if (selectedRoute === "sets") {
+      navigate("/user/sets");
+      handleRoute("sets");
+    } else if (selectedRoute === "folder") {
+      navigate("/user/folder");
+      handleRoute("folder");
+    }
+  };
+
+  const togglePopover = (deckId) => {
+    setPopoverDeckId(deckId);
+  };
+
   const handleDelete = async (deckId, e) => {
     e.stopPropagation();
 
     try {
       const response = await axios.delete(
-        `https://minflashcards.onrender.com/flashcard/edit/deleteDeck/${deckId}?userId=${currentUser.id}`,
+        `${API_BASE_URL}/flashcard/edit/deleteDeck/${deckId}?userId=${currentUser.id}`,
         {
           method: "DELETE",
           headers: {
@@ -153,8 +146,21 @@ export const UserDecks = () => {
         <span className="border border-[#003366] my-2"></span>
 
         {/* Filter Search */}
-        <div className="flex justify-end max-sm:justify-center my-3">
-          <span className="border border-blue-900 w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
+        <div className="flex justify-between my-3">
+          {/* Folder add */}
+          <button
+            onClick={() => {
+              navigate("/user/edit");
+              updateDeckId(null);
+            }}
+            className="bg-blue-800 w-10 h-10 rounded-md flex justify-center items-center text-xl 
+                                  transition-transform transform scale-100 hover:scale-110 active:scale-95 
+                                hover:bg-blue-700 active:bg-blue-900"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+
+          <span className="border border-blue-900 w-80 max-sm:w-56 px-4 flex items-center bg-[#2a315a] rounded-lg">
             <input
               type="text"
               placeholder="Search Sets"
@@ -177,26 +183,6 @@ export const UserDecks = () => {
         </div>
       </div>
 
-      {/* add deck */}
-      <div
-        className="w-[95%] h-24 rounded-2xl flex justify-center items-center flex-col space-y-1 py-1s bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
-           cursor-pointer transition-all duration-200 ease-in-out
-          hover:bg-[#233559] hover:shadow-lg"
-      >
-        <button
-          onClick={() => {
-            navigate("/user/edit");
-            updateDeckId(null);
-          }}
-          className="card--shadow cursor-pointer h-12 w-12 transition-all ease-in-out duration-150 rounded-full text-[25px] flex justify-center items-center bg-[#324B73] hover:bg-[#405B8A] focus:border-2"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <span>
-          <h1 className="select-none font-medium text-sm">create new set</h1>
-        </span>
-      </div>
-
       {/* decks */}
       {filteredDecks.map((item, key) => (
         <div
@@ -205,7 +191,7 @@ export const UserDecks = () => {
             navigate(`/user/review/${item.DeckId}`);
           }}
           key={key}
-          className="w-[95%] h-24 rounded-2xl bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
+          className="w-[95%] h-20 rounded-2xl bg-[#1C2A4A] text-[#D1D9E6] border border-[#2E436D]
           my-2 cursor-pointer transition-all duration-200 ease-in-out
           hover:bg-[#233559] hover:shadow-lg"
         >
@@ -286,7 +272,7 @@ export const UserDecks = () => {
               </AlertDialogContent>
             </AlertDialog>
           </span>
-          <span className="w-full h-[60%] rounded-b-2xl flex justify-start items-center px-3 font-medium text-2xl">
+          <span className="w-full h-[50%] rounded-b-2xl flex justify-start items-center px-3 font-medium text-xl">
             <h1>
               {item.title.charAt(0).toUpperCase() +
                 (item.title.length > 40
@@ -298,10 +284,10 @@ export const UserDecks = () => {
       ))}
 
       {/* not found image */}
-      {filteredDecks == 0 && (
+      {filteredDecks === 0 && (
         <div className="w-52 h-64 flex items-end overflow-hidden">
           <img
-            src="https://media-hosting.imagekit.io//81587770a0bb4e5e/9214777.jpg?Expires=1833129521&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=VqHmacU1hjejwbcMIyZb61astpRzcWQiFmHYUbXMsVN4~xTXZTCOasZVaKymLy3MRH7IwoLuDicOSz-L35T-Jx9fajtiTmQ1tbuxvrvl1jwibxedq5~9RB0l6NlM1iwDNylKXNTSqG8u4FV4VPkkAWRUhmEMkQ2Wu3pEyO5dY57nzH2KFRNl0ejPkW6nj8Iu0Sr4qSGZ6df-RzLFQt4f9YRG5dNYbRFq22~-MmObv4bULLsZKCyDxwyLWH9QFLpHB-j0NR3S74FxHlCn~TFOI8mJ~lxpKPb9PzCWWOY5qOw2Zs9LWVcgj9fNryzbdG5cxdF9C6ea54Wx7jEsW84bUw__"
+            src="https://media-hosting.imagekit.io//7b1a7dcb83c14b82/not-found2.png?Expires=1833167969&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=e6nzvTRG6WMvJ2aYn7WufuIDHMMvq3Q28ddJNEHDjFjuLuA7JXNldpVj2P~1YWvIABdEPpsmWXLYDgIoEpDNoW7RwDcmCCQEEdszeNkHfXY7tiU32LB9MD1uLPd38kEOpdom9sCCAxyv8m~10fDwOYco~JJXEpvhJalHLEzwg5tSIBhYK~D6a25evrdjL1FSRhHYsQtcK2GGrmgXF3fTFfZtc6GJ7Zv5~TYJP5HhKeKbVjiPj8pTm8jeQT4NzdJGs6lyxmxgfOZoK1fyhKIQjxEDzkbRmO5kCe1f9e44UEpNb1uTmt1YbKPgzwDh0Cef8lIb8wQ3LNPR26YPJZcceA__"
             alt="sets not found"
             className="rounded-3xl"
           />

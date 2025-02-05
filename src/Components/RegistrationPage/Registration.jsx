@@ -128,7 +128,7 @@ export const Registration = ({ handleClose }) => {
         .then((response) => {
           setOtpSent(true);
           setError({ errs: [], isError: false });
-          setTimer(300); // Start 5-minute countdown
+          setTimer(90); // Start 5-minute countdown
           toast.success("OTP sent to your email!");
 
           setLoginDetail({
@@ -194,7 +194,7 @@ export const Registration = ({ handleClose }) => {
   };
 
   const handleResendOtp = () => {
-    setTimer(300);
+    setTimer(90);
     signUp(data)
       .then(() => {
         toast.success("OTP resent to your email!");
