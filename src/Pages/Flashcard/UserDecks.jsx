@@ -17,7 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../../Components/ui/alert-dialog";
-const API_BASE_URL = "https://minflashcards.onrender.com/flashcard/user";
+const API_BASE_URL = "https://minflashcards.onrender.com";
 
 export const UserDecks = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export const UserDecks = () => {
     const fetchUserDecks = async () => {
       try {
         const response = await fetch(
-          `${API_BASE_URL}/readUser/${currentUser.id}`,
+          `${API_BASE_URL}/flashcard/user/readUser/${currentUser.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
