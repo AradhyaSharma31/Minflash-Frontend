@@ -32,7 +32,20 @@ export const completeRegistration = (email, otp, data) => {
     .then((res) => res.data);
 };
 
-// token in auth header
+export const isAdmin = (userId, token) => {
+  return myAxios
+    .get(`api/v1/auth/isAdmin/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error("Error checking admin status:", error);
+      return false;
+    });
+};
 
 export const axiosInstance = axios.create({
   baseURL: "https://minflashcards.onrender.com/flashcard",

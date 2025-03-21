@@ -8,6 +8,7 @@ import {
   faGear,
   faSearch,
   faTimes,
+  faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { Registration } from "../RegistrationPage/Registration";
 import {
@@ -29,10 +30,13 @@ import {
 } from "../../Components/ui/alert-dialog";
 import axios from "axios";
 import { DeckContext } from "../../../src/Context/DeckProvider";
+import { isAdmin } from "../../Services/UserService";
 
 const API_BASE_URL = "https://minflashcards.onrender.com/flashcard/edit";
 
 const Navbar = () => {
+  const token = getCurrentUserToken();
+  const [isAdminStatus, setIsAdminStatus] = useState(null);
   const { updateDeckId } = useContext(DeckContext);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [clickProfile, setClickProfile] = useState(false);
@@ -49,6 +53,22 @@ const Navbar = () => {
   const [imageURL, setImageURL] = useState(
     localStorage.getItem("profileImage")
   ); // State for file URL saved in azure
+
+  useEffect(() => {
+    if (login) {
+      const checkAdmin = async () => {
+        try {
+          const response = await isAdmin(currentUser.id, token);
+          setIsAdminStatus(response.isAdmin === "true");
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsAdminStatus(false);
+        }
+      };
+
+      checkAdmin();
+    }
+  }, [login, currentUser?.id, token]);
 
   // close the profile details tab from onWindow click
   useEffect(() => {
@@ -102,6 +122,7 @@ const Navbar = () => {
         DeckId: deck.id,
         UserProfileImage: "",
         title: deck.title,
+        categoryName: deck.categoryName,
         totalTerms: deck.cards.length,
       }));
       setDeck(allDecks);
@@ -113,8 +134,10 @@ const Navbar = () => {
   // Filter decks based on search input
   useEffect(() => {
     if (searchInput) {
-      const filtered = deck.filter((d) =>
-        d.title.toLowerCase().includes(searchInput.toLowerCase())
+      const filtered = deck.filter(
+        (d) =>
+          d?.title?.toLowerCase()?.includes(searchInput.toLowerCase()) ||
+          d?.categoryName?.toLowerCase()?.includes(searchInput.toLowerCase())
       );
       setFilteredDecks(filtered);
     } else {
@@ -123,7 +146,9 @@ const Navbar = () => {
   }, [searchInput, deck]);
 
   useEffect(() => {
-    searchSets();
+    if (login) {
+      searchSets();
+    }
     setLogin(isLoggedIn());
     setCurrentUser(getCurrentUserDetail());
   }, [login]);
@@ -290,6 +315,18 @@ const Navbar = () => {
                       <FontAwesomeIcon icon={faGear} />
                       <h1 className="text-sm font-medium">Settings</h1>
                     </li>
+                    {isAdminStatus && (
+                      <li
+                        onClick={() => {
+                          handleCloseMenu();
+                          navigate(`/user/admin`);
+                        }}
+                        className="flex flex-row items-center gap-[30px] px-[22px] py-2 hover:bg-[#2A3E5C] cursor-pointer"
+                      >
+                        <FontAwesomeIcon icon={faShield} />
+                        <h1 className="text-sm font-medium">Admin Panel</h1>
+                      </li>
+                    )}
                     <hr className="border-[#a58f8f]" />
                     <li
                       onClick={() => setIsLogout(true)}

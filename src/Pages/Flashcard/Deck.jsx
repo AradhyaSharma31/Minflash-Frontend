@@ -9,8 +9,33 @@ import { DeckContext } from "../../Context/DeckProvider";
 import { Loader2 } from "lucide-react";
 import { Button } from "../../Components/ui/button";
 import axios from "axios";
-import { faCross, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCross,
+  faPlus,
+  faSearch,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../../Components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../../Components/ui/alert-dialog";
+
+const BASE_URL = "https://minflashcards.onrender.com/flashcard/category";
 
 const generateUniqueId = () => "_" + Math.random().toString(36).substr(2, 9);
 
@@ -21,6 +46,7 @@ export const Deck = () => {
   const token = getCurrentUserToken();
   const [imageName, setImageName] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const [deckId, setDeckId] = useState(
     sessionStorage.getItem("currentDeckId") || null
   );
@@ -29,6 +55,7 @@ export const Deck = () => {
     id: generateUniqueId(),
     title: "",
     description: "",
+    categoryName: "",
     cards: [
       {
         id: generateUniqueId(),
@@ -41,6 +68,20 @@ export const Deck = () => {
     ],
   });
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getAllCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Failed to fetch categories");
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const fetchDeck = async () => {
@@ -66,6 +107,7 @@ export const Deck = () => {
           id: fetchedDeck?.id,
           title: fetchedDeck?.title,
           description: fetchedDeck?.description,
+          categoryName: fetchedDeck?.categoryName,
           cards: fetchedDeck.cards.map((card) => ({
             id: card?.id,
             term: card?.term,
@@ -313,9 +355,12 @@ export const Deck = () => {
           await Promise.all(cardPromises.filter(Boolean));
           toast.success("Deck updated successfully");
           navigate(`/user/review/${deckId}`);
-          // window.location.reload(true);
         } else {
-          const deckResponse = await createDeck(deck.title, deck.description);
+          const deckResponse = await createDeck(
+            deck.title,
+            deck.description,
+            deck.categoryName
+          );
 
           const newDeckId = deckResponse.data.id;
 
@@ -333,7 +378,6 @@ export const Deck = () => {
 
           toast.success("Set saved successfully");
           navigate(`/user/review/${newDeckId}`);
-          // window.location.reload(true);
         }
       } catch (error) {
         toast.error("Error saving the set");
@@ -364,10 +408,10 @@ export const Deck = () => {
   };
 
   // create new deck
-  const createDeck = async (title, description) => {
+  const createDeck = async (title, description, categoryName) => {
     return await axiosInstance.post(
       `/edit/createDeck/${user.id}`,
-      { title, description },
+      { title, description, categoryName },
       { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
     );
   };
@@ -401,6 +445,57 @@ export const Deck = () => {
       return response.data; // Return the created card data
     } catch (error) {
       console.error("Error creating card:", error);
+      throw error;
+    }
+  };
+
+  const generateCategoryRequest = async () => {
+    try {
+      await axios.post(
+        `${BASE_URL}/generateRequest/${user.id}`,
+        { categoryRequestName: categoryName },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error generating category request:", error);
+    }
+    setCategoryName("");
+  };
+
+  // Function to update deck category
+  const updateDeckCategory = async (deckId, categoryId, userId) => {
+    try {
+      const response = await axios.put(
+        `${BASE_URL}/updateDeckCategory/${deckId}/${categoryId}/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error updating deck category:",
+        error.response?.data || error
+      );
+      throw error;
+    }
+  };
+
+  // Function to get all categories
+  const getAllCategories = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getAll`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching categories:", error);
       throw error;
     }
   };
@@ -448,11 +543,84 @@ export const Deck = () => {
         </div>
       </div>
 
-      {/* Filter Search */}
+      {/* Filter Search & Category Select */}
       <div className="w-full flex flex-col mt-10">
         <span className="w-full flex border border-[#003366]"></span>
 
-        <div className="flex max-sm:justify-center justify-end mt-8">
+        <div className="flex flex-row justify-between mt-8">
+          {/* Category Select */}
+          <div className="w-60 px-4 flex items-center bg-[#2a315a] border border-blue-900 rounded-lg">
+            <Select
+              onValueChange={(selectedValue) => {
+                const selectedCategory = categories.find(
+                  (cat) => cat.categoryName === selectedValue
+                );
+                if (selectedCategory) {
+                  updateDeckCategory(deckId, selectedCategory.id, user.id);
+                }
+              }}
+              className="w-full"
+            >
+              <SelectTrigger className="w-full bg-transparent border-none outline-none py-2 text-white">
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#2a315a] border border-blue-900 text-white">
+                {/* Request New Category */}
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <div className="hover:bg-[#3a426e] select-none p-2 text-sm flex flex-row items-center justify-between cursor-pointer rounded-md">
+                      <h1>Request New Category</h1>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </div>
+                  </AlertDialogTrigger>
+
+                  {/* Alert Dialog Content */}
+                  <AlertDialogContent className="bg-[#15171a] border border-gray-700 rounded-lg shadow-lg">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-white text-xl font-bold">
+                        Enter Category Name
+                      </AlertDialogTitle>
+                    </AlertDialogHeader>
+
+                    <AlertDialogDescription className="w-full border border-gray-600 py-2 px-3 rounded-lg mt-4">
+                      <input
+                        className="bg-transparent outline-none w-full text-gray-300 placeholder-gray-500"
+                        autoComplete="off"
+                        type="text"
+                        placeholder="Category name..."
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
+                      />
+                    </AlertDialogDescription>
+
+                    <AlertDialogFooter className="mt-6">
+                      <AlertDialogCancel className="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold px-4 py-2 rounded-lg transition-colors">
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
+                        onClick={generateCategoryRequest}
+                        disabled={!categoryName.trim()}
+                      >
+                        Submit Request
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
+                {categories.map((category) => (
+                  <SelectItem
+                    key={category.id}
+                    value={category.categoryName}
+                    className="hover:bg-[#3a426e]"
+                  >
+                    {category.categoryName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <span className="border border-blue-900 w-80 px-4 flex items-center bg-[#2a315a] rounded-lg">
             <input
               type="text"

@@ -19,7 +19,6 @@ export const Registration = ({ handleClose }) => {
 
   // To check if the Continue button is enabled or disabled for OTP purposes
   const [showContinueBtn, setShowContinueBtn] = useState(false);
-
   const [logIn, setLogIn] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -222,8 +221,6 @@ export const Registration = ({ handleClose }) => {
       });
   };
 
-  console.log("showContinueBtn");
-
   return (
     <>
       <div className="modal-overlay">
@@ -253,7 +250,7 @@ export const Registration = ({ handleClose }) => {
                 name="useremail"
                 required
                 className="w-full border px-4 py-2"
-                placeholder={showPlaceholder.email ? "Billy08@email.com" : ""}
+                placeholder={showPlaceholder.email ? "aradhya@example.com" : ""}
                 onFocus={() => handleFocus("email")}
                 onBlur={(e) => handleBlur(e, "email")}
                 onChange={(e) => {
@@ -275,7 +272,7 @@ export const Registration = ({ handleClose }) => {
                   name="username"
                   required
                   className="w-full border px-4 py-2"
-                  placeholder={showPlaceholder.username ? "Billy08" : ""}
+                  placeholder={showPlaceholder.username ? "aradhya" : ""}
                   onFocus={() => handleFocus("username")}
                   onBlur={(e) => handleBlur(e, "username")}
                   onChange={(e) => {

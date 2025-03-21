@@ -7,6 +7,7 @@ export const Footer = () => {
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Minflash. All Rights Reserved.
         </p>
+        <p className="text-sm">Aradhya Sharma</p>
       </div>
     </footer>
   );

@@ -11,6 +11,9 @@ import { getCurrentUserDetail } from "../../Auth/auth";
 import { ExploreReviewDeck } from "../../Pages/Flashcard/ExploreReviewDeck";
 import { SetFolder } from "../../Pages/Flashcard/SetFolder";
 import { SetFolderPage } from "../../Pages/Flashcard/SetFolderPage";
+import { AdminPanel } from "../../Pages/Admin/AdminPanel";
+import { ManageCategories } from "../../Pages/Admin/ManageCategories";
+import { ManageCategoriesRequests } from "../../Pages/Admin/ManageCategoriesRequests";
 
 export const Routers = () => {
   const [user, setUser] = useState(getCurrentUserDetail());
@@ -37,6 +40,15 @@ export const Routers = () => {
           <Route path="folder" element={<SetFolder />} />
 
           <Route path="folder/:folderId" element={<SetFolderPage />} />
+
+          <Route path="admin" element={<AdminPanel />} />
+
+          <Route path="admin/ManageCategories" element={<ManageCategories />} />
+
+          <Route
+            path="admin/ManageCategoryRequests"
+            element={<ManageCategoriesRequests />}
+          />
         </Route>
 
         <Route path="*" element={<Error />} />
